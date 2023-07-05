@@ -1,0 +1,80 @@
+/* Profile.css */
+.profile-container {
+  background-color: #1e1e1e;
+  color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column; /* Arrange content vertically */
+  align-items: center; /* Center content horizontally */
+  text-align: center; /* Center text horizontally */
+}
+
+.profile-info {
+  margin-bottom: 20px;
+}
+
+.profile-image-wrapper {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile-details {
+  margin-bottom: 20px;
+}
+
+.profile-name {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.profile-bio {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.profile-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.stats-item {
+  text-align: center;
+}
+
+.stats-item h6 {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.stats-item p {
+  font-size: 18px;
+}
+
+.edit-profile-button {
+  background-color: #3897f0;
+  border: none;
+  color: #fff;
+  margin-top: auto;
+  padding: 10px 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.edit-profile-button:hover {
+  background-color: #1f6feb;
+  cursor: pointer;
+}

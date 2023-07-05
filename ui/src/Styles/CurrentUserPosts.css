@@ -1,0 +1,86 @@
+.post-list {
+  padding: 20px;
+  background-color: rgb(35, 35, 43);
+  color: white;
+  border-radius: 5xp;
+}
+
+.post-list h1 {
+  margin-bottom: 20px;
+}
+
+.post-list-scrollable {
+  height: 400px; /* Adjust the height as per your requirements */
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+
+.post-list-scrollable::-webkit-scrollbar {
+  width: 10px; /* Width of the scroll bar */
+}
+
+.post-list-scrollable::-webkit-scrollbar-track {
+  background-color: #22212a; /* Track color */
+}
+
+.post-list-scrollable::-webkit-scrollbar-thumb {
+  background-color: #888; /* Thumb color */
+  border-radius: 5px; /* Border radius of the thumb */
+}
+
+.post-list-scrollable::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Thumb color on hover */
+}
+
+
+
+
+
+
+
+.post-item {
+  margin-bottom: 20px;
+}
+
+.post-image {
+  cursor: pointer;
+}
+
+.post-details {
+  margin-top: 10px;
+}
+
+.post-details p {
+  margin-bottom: 5px;
+}
+
+.post-details button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.post-details button:hover {
+  background-color: #d32f2f;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.modal-body img {
+  max-width: 100%;
+  max-height: 400px;
+  margin-bottom: 10px;
+}
+
+.modal-body p {
+  margin-bottom: 5px;
+}

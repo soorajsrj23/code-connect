@@ -1,0 +1,128 @@
+.signup-container {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  
+  .signup-form {
+    background-color: #161b22;
+    padding: 30px;
+    border-radius: 8px;
+  }
+  
+  .darkInput {
+    background-color: #0d1117; /* Dark background color */
+    color: #c9d1d9;
+    border: none;
+    height: 40px; /* Adjust the height as desired */
+    width: 100%; /* Adjust the width as desired */
+    padding: 8px; 
+    display: flex;
+    border-radius: 5px;
+  }
+  
+  @media (max-width: 768px) {
+    .darkInput {
+      width: 100%; 
+       height: max-content;
+      /* Adjust the width for smaller screens */
+    }
+    .signup-container {
+    background-color: #0d1117;
+    color: #c9d1d9;
+  
+    display: flex;
+    align-items: center;
+  }
+  }
+  
+  .darkInput:focus {
+    outline: none;
+    border: 2px solid #0366d6; /* Blue border color */
+    box-shadow: 0 0 5px #0366d6; /* Blue box shadow */
+  }
+  
+  .signup-form h2 {
+    margin-bottom: 20px;
+    font-family: 'Exo', sans-serif;
+    padding-top: 50px;
+  }
+  
+  .btn-dark {
+    background-color: #0d1117;
+    border-color: #c9d1d9;
+    color: #c9d1d9;
+  }
+  
+  .btn-dark:hover {
+    background-color: #c9d1d9;
+    color: #0d1117;
+  }
+  
+  .fileInputLabel {
+    background-color: transparent;
+    color: #c9d1d9;
+  
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .fileInput {
+    display: none;
+    font-family: 'Exo', sans-serif;
+   
+  }
+  
+  .inputsFieldName {
+    font-family: 'Exo', sans-serif;
+    font-size: 20px;
+  }
+  
+  .sign-up_head {
+    font-family: 'Exo', sans-serif;
+  }
+  
+  @media (max-width: 576px) {
+    .sign-up_head {
+      font-size: 24px;
+    }
+  }
+  
+  @media (max-width: 400px) {
+    .sign-up_head {
+      font-size: 20px;
+    }
+  }
+  .icon-wrapper {
+    display: flex;
+    justify-content: center; /* Aligns content to the right */
+    align-items: center; /* Aligns content to the bottom */
+    margin-bottom: 20px;
+  }
+  
+  
+  .selected-image-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  
+  .selected-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .add_icon
+  {
+  
+    display: flex;
+    justify-content: flex-end; /* Aligns content to the right */
+    align-items: flex-end; /* Aligns content to the bottom */
+    margin-top: 75px;
+    
+  }

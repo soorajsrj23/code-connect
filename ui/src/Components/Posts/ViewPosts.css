@@ -1,0 +1,75 @@
+/* ViewPosts.css */
+
+/* Custom dark theme styles */
+
+
+.dark {
+  background-color: #212121;
+  color: #ffffff;
+}
+
+.rounded-circle {
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.w-100 {
+  width: 100%;
+}
+/* ViewPosts.css */
+
+.dark {
+  background-color: #363636;
+  color: #ffffff;
+}
+
+.dark .card-text {
+  color: #ffffff;
+}
+
+.dark .btn {
+  background-color: #3897f0;
+  border-color: #3897f0;
+  color: #ffffff;
+}
+
+.dark .btn:hover {
+  background-color: #2687e0;
+  border-color: #2687e0;
+  color: #ffffff;
+}
+
+.dark .form-control {
+  background-color: #262626;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.dark a {
+  color: #ffffff;
+}
+
+.dark a:hover {
+  color: #cccccc;
+}
+
+.dark a:visited {
+  color: #cccccc;
+}
+

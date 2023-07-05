@@ -1,0 +1,42 @@
+.community-container {
+    padding: 20px;
+  }
+  
+  .community-card {
+    margin-bottom: 20px;
+  }
+  
+  .community-info {
+    cursor: pointer;
+  }
+  
+  .community-icon {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .chat-form {
+    display: flex;
+    margin-top: 10px;
+  }
+  
+  .chat-form input[type="text"] {
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  
+  .chat-messages {
+    margin-top: 20px;
+  }
+  
+  .chat-message {
+    margin-bottom: 10px;
+  }
+  
+  .chat-message p {
+    margin-bottom: 5px;
+  }
+  
+  
