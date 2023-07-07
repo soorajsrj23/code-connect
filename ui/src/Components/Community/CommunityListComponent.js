@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import axios from 'axios';
 import io from 'socket.io-client';
 import { Row, Col, ListGroup, ListGroupItem, Media, Form, FormGroup, Input, Button } from 'reactstrap';
@@ -7,6 +7,9 @@ const CommunityListComponent = () => {
   const [communities, setCommunities] = useState([]);
   const [selectedCommunity, setSelectedCommunity] = useState(null);
   const [socket, setSocket] = useState(null);
+  const [isImageZoomed, setIsImageZoomed] = useState(false);
+  const [zoomedImageSrc, setZoomedImageSrc] = useState('');
+  const chatMessagesRef = useRef(null);
 
   useEffect(() => {
     const fetchCommunities = async () => {
@@ -84,7 +87,12 @@ const CommunityListComponent = () => {
         }
         return prevCommunity;
       });
+      if (chatMessagesRef.current) {
+        chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+      }
     }
+
+    
 
     e.target.reset();
   };
@@ -107,8 +115,21 @@ const CommunityListComponent = () => {
     }
   };
 
+
+  const zoomImage = (imageSrc) => {
+    setIsImageZoomed(true);
+    setZoomedImageSrc(imageSrc);
+  };
+
+  const closeZoomedImage = () => {
+    setIsImageZoomed(false);
+    setZoomedImageSrc('');
+  };
+
+
+
   return (
-    <div className="container-fluid bg-dark text-white py-4">
+    <div className="container-fluid bg-dark text-white py-4" ref={chatMessagesRef}>
       <Row>
         <Col md={4} className="mb-4">
           <h2>Communities</h2>
@@ -141,11 +162,11 @@ const CommunityListComponent = () => {
               <div className="chat-header">
                 <h2 className="chat-title">{selectedCommunity.name}</h2>
               </div>
-              <div className="chat-messages">
+              <div className="chat-messages" >
               {selectedCommunity.chat.reverse().map((chat) => (
-  <div key={chat._id} className="message-item">
+  <div key={chat._id} className="message-item" >
     {chat.image && (
-      <div >
+      <div  >
          <img
                     src={`data:${chat.image.contentType}};base64,${btoa(
                       new Uint8Array(chat.image.data.data).reduce(
@@ -155,6 +176,9 @@ const CommunityListComponent = () => {
                     )}`}
                     alt=""
                     className="message-image"
+                    onClick={() => zoomImage(`data:${chat.image.contentType};base64,${btoa(
+                      new Uint8Array(chat.image.data.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
+                    )}`)}
                   />
       </div>
      
@@ -172,15 +196,20 @@ const CommunityListComponent = () => {
  
               </div>
               <Form onSubmit={handleCommunityChatSubmit} className="chat-input">
-                <FormGroup>
-                  <Input type="text" name="message" placeholder="Message" required className="message-input" />
-                </FormGroup>
-                <FormGroup>
-                  <Input type="file" name="image" />
-                </FormGroup>
+            
+                  <input type="text" name="message" placeholder="Message" required className="message-input" />
+                 
+                
+               <input type="file" name="image" className="d-none" id="imageInput" />
+             <label htmlFor="imageInput" className="attachment-icon">
+             <i class="bi bi-paperclip"></i>
+           </label>
+           
+           
                 <Button type="submit" color="primary" className="send-button">
-                  Send
+                <i class="bi bi-send-fill"></i>
                 </Button>
+       
               </Form>
             </div>
           ) : (
@@ -188,6 +217,16 @@ const CommunityListComponent = () => {
           )}
         </Col>
       </Row>
+      {isImageZoomed && (
+  <div className="modal-overlay">
+    <div className="modal-content">
+      <img src={zoomedImageSrc} alt="Zoomed Image" className="zoomed-image" />
+      <button className="modal-close" onClick={closeZoomedImage}>
+        &times;
+      </button>
+    </div>
+  </div>
+)}
     </div>
       );
 };
