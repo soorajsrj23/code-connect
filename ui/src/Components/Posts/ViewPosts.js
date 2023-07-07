@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, Input, Button } from 'reactstrap';
-import '../Posts/ViewPosts.css'
+import './ViewPosts.css'
 const ViewPosts = () => {
   const [posts, setPosts] = useState([]);
   const [commentText, setCommentText] = useState('');

@@ -73,12 +73,13 @@ const UserSearch = () => {
   };
 
   return (
-    <div>
+    <div className='mainSearch'>
       <input
         type="text"
         value={searchQuery}
         onChange={handleInputChange}
         placeholder="Enter user name"
+        className='search-input'
       />
 
       {nameSuggestions.length > 0 && (

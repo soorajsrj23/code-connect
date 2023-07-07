@@ -16,6 +16,7 @@ import UserSearch from './Components/Search/UserSearch';
 import CommunityListComponent from './Components/Community/CommunityListComponent';
 import TechNews from './Components/News/TechNews'
 import Chat from './Components/Community/Chat'
+import QuoteComponent from './Components/Quotes/QuoteComponent'
 
 
 import './App.css'
@@ -36,6 +37,7 @@ function App() {
           <Route path="chat" element={<Chat/>} />
           <Route path="/search" element={<UserSearch />} />
           <Route path="news" element={<TechNews />} />
+          <Route path="quote" element={<QuoteComponent/>} />
           
         
 

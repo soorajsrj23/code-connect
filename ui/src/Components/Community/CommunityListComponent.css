@@ -1,42 +1,140 @@
-.community-container {
-    padding: 20px;
-  }
-  
-  .community-card {
-    margin-bottom: 20px;
-  }
-  
-  .community-info {
-    cursor: pointer;
-  }
-  
-  .community-icon {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-  
-  .chat-form {
-    display: flex;
-    margin-top: 10px;
-  }
-  
-  .chat-form input[type="text"] {
-    flex-grow: 1;
-    margin-right: 10px;
-  }
-  
-  .chat-messages {
-    margin-top: 20px;
-  }
-  
-  .chat-message {
-    margin-bottom: 10px;
-  }
-  
-  .chat-message p {
-    margin-bottom: 5px;
-  }
-  
-  
+/* CommunityListComponent.css */
+
+.container-fluid {
+  padding: 20px;
+  background-color: #222;
+  color: #fff;
+}
+
+.community-item {
+  cursor: pointer;
+}
+
+.community-item.active {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.community-icon {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.community-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chat-section {
+  background-color: #292d34;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.chat-title {
+  margin-top: 0;
+  color: #fff;
+}
+
+.chat-messages {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.message-item {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.message-image-container {
+  position: relative;
+}
+
+.message-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.no-image-placeholder {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #444;
+  font-size: 14px;
+  color: #999;
+}
+
+.message-user {
+  margin: 0;
+  font-weight: bold;
+}
+
+.message-text {
+  margin: 0;
+}
+
+.chat-input {
+  margin-top: 20px;
+}
+
+.message-input {
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.send-button {
+  margin-top: 10px;
+  background-color: #007bff;
+}
+
+.send-button:hover {
+  background-color: #0056b3;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.zoomed-image {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+}
