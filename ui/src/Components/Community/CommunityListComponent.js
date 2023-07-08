@@ -11,6 +11,27 @@ const CommunityListComponent = () => {
   const [isImageZoomed, setIsImageZoomed] = useState(false);
   const [zoomedImageSrc, setZoomedImageSrc] = useState('');
   const chatMessagesRef = useRef(null);
+  const downArrowRef = useRef(null);
+  const [currentUser,setCurrentUser]=useState('');
+
+
+  const fetchCurrentUser = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/current-user', {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      setCurrentUser(response.data);
+    } catch (error) {
+      console.log('Error fetching current user:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCurrentUser();
+  }, []);
+
 
   useEffect(() => {
     const fetchCommunities = async () => {
@@ -74,7 +95,7 @@ const CommunityListComponent = () => {
     e.preventDefault();
     const message = e.target.elements.message.value;
     const image = e.target.elements.image.files[0];
-    const user = 'John'; // Replace with the actual user name or ID
+    const user = currentUser._id; // Replace with the actual user name or ID
 
     if (socket && selectedCommunity) {
       const chatData = {
@@ -94,6 +115,7 @@ const CommunityListComponent = () => {
       });
 
       e.target.reset();
+      scrollToLatestMessage();
     }
   };
 
@@ -114,6 +136,11 @@ const CommunityListComponent = () => {
     if (chatMessagesRef.current) {
       chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
     }
+  };
+
+  const scrollToLatestMessageWithArrow = () => {
+    scrollToLatestMessage();
+    downArrowRef.current.style.display = '';
   };
 
   const zoomImage = (imageSrc) => {
@@ -158,7 +185,7 @@ const CommunityListComponent = () => {
               </div>
               <div className="chat-messages" ref={chatMessagesRef}>
                 {selectedCommunity.chat.map((chat) => (
-                  <div key={chat._id} className="message-item">
+                 <div key={chat._id} className={`message-item ${chat.user === currentUser._id ? 'sender' : 'receiver'}`}>
                     {chat.image && (
                       <div>
                         <img
@@ -172,8 +199,16 @@ const CommunityListComponent = () => {
 
                     {!chat.image && <div className="no-image-placeholder"></div>}
                     <div className="ml-3">
-                      <h6 className="message-user">{chat.user || 'Unknown User'}</h6>
-                      <p className="message-text">{chat.message}</p>
+                    {chat.user && (
+            <div>
+            </div>
+          )}
+                     <h6 className={`message-user ${chat.user === currentUser._id ? 'sender' : 'receiver'}`}>
+                        {chat.user.name || 'Unknown User'}
+                      </h6>
+                      <p className={`message-text ${chat.user === currentUser._id ? 'sender' : 'receiver'}`}>
+                        {chat.message}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -188,6 +223,11 @@ const CommunityListComponent = () => {
                   <i className="bi bi-send-fill"></i>
                 </Button>
               </Form>
+              <div className="scroll-to-latest">
+                <button className="down-arrow" onClick={scrollToLatestMessageWithArrow} ref={downArrowRef}>
+                <i class="bi bi-arrow-down-circle-fill"></i>
+                </button>
+              </div>
             </div>
           ) : (
             <h2>No community selected</h2>
