@@ -91,9 +91,9 @@
 
 .message-image {
   width: 200px;
-  height: 200px;
-  object-fit: cover;
+  height: auto;
   cursor: pointer;
+  display: flex;
 }
 
 .no-image-placeholder {
@@ -252,12 +252,13 @@
 
 .message-item {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 10px; 
+  margin-right: 10px;
 }
 
 .sender .message-item {
   justify-content: flex-end;
+ 
 }
 
 .receiver .message-item {
@@ -296,20 +297,20 @@
 }
 
 .communityList::-webkit-scrollbar {
-  width: 8px; /* Set the width of the scrollbar */
+  width: 8px; 
 }
 
 .communityList::-webkit-scrollbar-track {
-  background-color: #1b1b1b; /* Set the background color of the scrollbar track */
+  background-color: #1b1b1b; 
 }
 
 .communityList::-webkit-scrollbar-thumb {
-  background-color: #454444; /* Set the background color of the scrollbar thumb */
-  border-radius: 4px; /* Add rounded corners to the scrollbar thumb */
+  background-color: #454444; 
+  border-radius: 4px; 
 }
 
 .communityList::-webkit-scrollbar-thumb:hover {
-  background-color: #4b4b4b; /* Set the background color of the scrollbar thumb on hover */
+  background-color: #4b4b4b; 
 }
 
 
