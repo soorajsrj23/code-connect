@@ -10,7 +10,7 @@ const port = 4000;
 app.use(express.json());
 
 const Post=require('../server/models/AddPost')
-const Community= require('../server/models/Community')
+
 
 // Connect to MongoDB
 const dbURI = "mongodb://localhost/codeConnect";
@@ -44,6 +44,10 @@ const http = require('http');
 const socketIO = require('socket.io');
 const server = http.createServer(app);
 
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
 const io = socketIO(server, {
   cors: {
     origin: 'http://localhost:3000',
@@ -73,6 +77,45 @@ const chatSchema = new mongoose.Schema(
 const Chat = mongoose.model('Chat', chatSchema);
 app.use(express.json());
 
+
+
+
+
+
+const communitySchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+});
+
+const CommunityChatSchema = new mongoose.Schema({
+  community: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Community',
+    required: true,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+  ref: 'User',
+  required: true,
+},
+  message: {
+    type: String,
+    required: true,
+  },
+  image: {
+    data: Buffer,
+    contentType: String,
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+const Community = mongoose.model('Community', communitySchema);
+const communityChat = mongoose.model('communityChat', CommunityChatSchema);
 
 
 const authenticate = async (req, res, next) => {
@@ -151,6 +194,36 @@ io.on('connection', (socket) => {
       console.log('Error saving chat message:', error);
     }
   });
+  
+
+  
+  socket.on('communityChat', async (data) => {
+    const { community, communityChatMessage } = data;
+    console.log('Received community chat message', communityChat);
+  
+    try {
+      // Save the chat message to the database
+      const newChat = new communityChat({
+        community: community,
+        user: communityChatMessage.user,
+        message: communityChatMessage.message,
+        image: communityChatMessage.image,
+      });
+      await newChat.save();
+      console.log('Chat message saved:', newChat);
+  
+      // Emit the chat message to the community room
+      io.to(community).emit('communityChat', {
+        community: community,
+        chat: newChat,
+      });
+    } catch (error) {
+      console.error('Error saving community chat:', error);
+    }
+  });
+  
+ 
+
 
   // Handle disconnection
   socket.on('disconnect', () => {
@@ -162,6 +235,77 @@ io.on('connection', (socket) => {
     io.emit('userCount', connectedUsers);
   });
 });
+
+
+app.get('/api/communities', async (req, res) => {
+  try {
+    const communities = await Community.find();
+    res.json(communities);
+  } catch (error) {
+    console.error('Error fetching communities:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+app.get('/api/communityChats/:communityId', async (req, res) => {
+  try {
+    const communityId = req.params.communityId;
+    const communityChats = await communityChat.find({ community: communityId });
+    const populatedChats = await Promise.all(
+      communityChats.map(async (chat) => {
+        const populatedChat = { ...chat.toObject() };
+        const user = await User.findById(chat.user);
+        populatedChat.user = user;
+        return populatedChat;
+      })
+    );
+    res.json(populatedChats);
+  } catch (error) {
+    console.error('Error fetching community chats:', error);
+    res.status(500).json({ error: 'Failed to fetch community chats' });
+  }
+});
+app.post('/api/communityChats/:communityId', upload.single('image'), async (req, res) => {
+  try {
+    const { communityId } = req.params;
+    const { user, message } = req.body;
+    const image = req.file;
+
+    // Create a chat object
+    const chat = new communityChat({
+      community: communityId,
+      user,
+      message,
+      image: {
+        data: image ? Buffer : null,
+       contentType: image ?  String : null,
+      },
+    });
+  
+    // Save the chat message to the database
+    await chat.save();
+
+    // Emit the chat message to the community room
+    io.to(communityId).emit('communityChat', chat);
+
+    res.status(201).json(chat);
+  } catch (error) {
+    console.error('Error saving community chat:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Assuming you have a route for fetching chats
 app.get('/chats', async (req, res) => {
@@ -228,13 +372,8 @@ app.get('/user/:id', async (req, res) => {
 
 
 
-
-
-
-
 // Configure multer for file uploads
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+
 
 // Enable CORS
 
@@ -583,104 +722,8 @@ app.post('/api/search', async (req, res) => {
 });
 
 
-app.get('/api/communities', async (req, res) => {
-  try {
-    const communities = await Community.find();
-    res.json(communities);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to retrieve communities' });
-  }
-});
 
-app.post('/api/community/:communityId/join', authenticate, async (req, res) => {
-  const { communityId } = req.params;
-
-  try {
-    // Find the community by its ID
-    const community = await Community.findById(communityId);
-
-    if (!community) {
-      return res.status(404).json({ error: 'Community not found' });
-    }
-
-    // Check if the user is already a member of the community
-    if (community.members.includes(req.user._id)) {
-      return res.status(400).json({ error: 'User is already a member of the community' });
-    }
-
-    // Add the user's ID to the community's members array
-    community.members.push(req.user._id);
-    await community.save();
-
-    res.status(200).json({ message: 'Joined the community successfully' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to join the community' });
-  }
-});
-
-// Create a new chat message
-// Post a chat message with image as buffer
-app.post('/api/community/:communityId/chat', authenticate, upload.single('image'), async (req, res) => {
-  const { communityId } = req.params;
-  const { message } = req.body;
-  const image = req.file;
-
-  try {
-    // Find the community by ID
-    const community = await Community.findById(communityId);
-    if (!community) {
-      return res.status(404).json({ error: 'Community not found' });
-    }
-
-    // Create a new chat message object
-    const chatMessage = {
-      message,
-      communityId,
-      image: {
-        data: null, // Placeholder for image data
-        contentType: null, // Placeholder for image content type
-      },
-      user: req.user._id,
-    };
-
-    // Check if image is provided
-    if (image) {
-      // Convert the image to base64 and set image data and content type
-      const imageData = image.buffer.toString('base64');
-      chatMessage.image.data = imageData;
-      chatMessage.image.contentType = image.mimetype;
-    }
-
-    // Push the chat message to the chat array of the community
-    community.chat.push(chatMessage);
-    await community.save();
-
-    res.json({ message: 'Chat message posted successfully' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
-
-
-
-app.get('/api/community/:communityId/chats', async (req, res) => {
-  const { communityId } = req.params;
-
-  try {
-    const chats = await Chat.find({ communityId });
-    res.json(chats);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-
-
-//real time chat section
+// //real time chat section
 
 
 const PORT = 4000;

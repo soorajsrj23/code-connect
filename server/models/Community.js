@@ -1,3 +1,4 @@
+// models/Community.js
 const mongoose = require('mongoose');
 
 const communitySchema = new mongoose.Schema({
@@ -10,12 +11,7 @@ const communitySchema = new mongoose.Schema({
     required: true,
   },
   icon: {
-    data: Buffer,
-    contentType: String,
-  },
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
     required: true,
   },
   members: [
@@ -24,34 +20,6 @@ const communitySchema = new mongoose.Schema({
       ref: 'User',
     },
   ],
-  posts: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Post',
-    },
-  ],
-  chat: {
-    type: [{
-      message: String,
-      communityId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Community'
-      },
-      image: {
-        data: String,
-        contentType: String
-      },
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-      }
-    }],
-    default: []
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
 });
 
 const Community = mongoose.model('Community', communitySchema);
