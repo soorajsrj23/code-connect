@@ -87,7 +87,22 @@ const communitySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+  },
+  icon: {
+    data: Buffer,
+    contentType: String,
+  },
+  members: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
 });
+
 
 const CommunityChatSchema = new mongoose.Schema({
   community: {

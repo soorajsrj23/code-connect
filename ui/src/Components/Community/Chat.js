@@ -155,7 +155,7 @@ const Chat = () => {
                 >
                   {chat.message}
                 </span>
-                <span className="message-name">{chat.sender === senderId ? 'You' : recieverDetails.name}</span>
+                <span className="message-name">{chat.sender._id === senderId ? 'You' : recieverDetails.name}</span>
               </div>
             ))
           )

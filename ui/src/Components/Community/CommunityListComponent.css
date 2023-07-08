@@ -9,14 +9,33 @@
   height: fit-content;
  
 }
-
+.communityList{
+  overflow-y: auto;
+  height: 800px;
+  color: white;
+  background-color: #222;
+}
 .community-item {
+  color: white;
+  background-color: #24282d; 
+  border: none;
   cursor: pointer;
 }
+.community-item.normal {
+  background-color: #242525; 
+  color: white;
+  border: none;
+}
+
+
 
 .community-item.active {
-  background-color: #343a40;
-  color: #fff;
+  background-color: #24272a; 
+}
+
+.community-item:hover {
+  background-color: #292929; 
+  color: white;
 }
 
 .community-icon {
@@ -48,6 +67,22 @@
   overflow-y: auto;
 }
 
+.chat-header {
+  display: flex;
+  align-items: center;
+  background-color: #363839;
+  padding: 10px;
+  gap: 10px;
+}
+
+.chat-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+ 
 
 
 .message-image-container {
@@ -247,20 +282,35 @@
 }
 
 .sender .message-text {
-  background-color: #00ac92;
+  background-color: #188878;
   color: white;
   padding: 8px 12px;
   border-radius: 10px;
 }
 
 .receiver .message-text {
-  background-color: #e74c3c;
+  background-color: #3c3c3c;
   color: white;
   padding: 8px 12px;
   border-radius: 10px;
 }
 
+.communityList::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+}
 
+.communityList::-webkit-scrollbar-track {
+  background-color: #1b1b1b; /* Set the background color of the scrollbar track */
+}
+
+.communityList::-webkit-scrollbar-thumb {
+  background-color: #454444; /* Set the background color of the scrollbar thumb */
+  border-radius: 4px; /* Add rounded corners to the scrollbar thumb */
+}
+
+.communityList::-webkit-scrollbar-thumb:hover {
+  background-color: #4b4b4b; /* Set the background color of the scrollbar thumb on hover */
+}
 
 
 

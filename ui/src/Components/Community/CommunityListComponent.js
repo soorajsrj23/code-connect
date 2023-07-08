@@ -156,18 +156,22 @@ const CommunityListComponent = () => {
   return (
     <div className="container-fluid bg-dark text-white py-4">
       <Row>
-        <Col md={4} className="mb-4">
+        <Col md={4} className="communityList">
           <h2>Communities</h2>
           <ListGroup>
             {communities.map((community) => (
-              <ListGroupItem
+              <ListGroupItem 
                 key={community._id}
                 onClick={() => selectCommunity(community)}
                 active={selectedCommunity && selectedCommunity._id === community._id}
-                className={`community-item ${selectedCommunity && selectedCommunity._id === community._id ? 'active' : ''}`}
+                className={`community-item ${selectedCommunity && selectedCommunity._id === community._id ? 'active' : 'normal'}`}
               >
                 <div className="community-icon">
-                  <img src={`data:image/jpeg;base64,${community.icon.data}`} alt="Community Icon" />
+                <img
+          
+          src={`data:${community.icon.contentType};base64,${btoa(
+            new Uint8Array(community.icon.data.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
+          )}`}/>
                 </div>
                 <div className="community-info">
                   <h5 className="community-name">{community.name}</h5>
@@ -181,11 +185,19 @@ const CommunityListComponent = () => {
           {selectedCommunity ? (
             <div className="chat-section">
               <div className="chat-header">
-                <h2 className="chat-title">{selectedCommunity.name}</h2>
+              
+                <img
+          src={`data:${selectedCommunity.icon.contentType};base64,${btoa(
+            new Uint8Array(selectedCommunity.icon.data.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
+          )}`}
+          alt=""
+          className="community-icon"
+        />
+          <h2 className="chat-title">{selectedCommunity.name}</h2>
               </div>
               <div className="chat-messages" ref={chatMessagesRef}>
                 {selectedCommunity.chat.map((chat) => (
-                 <div key={chat._id} className={`message-item ${chat.user === currentUser._id ? 'sender' : 'receiver'}`}>
+                 <div key={chat._id} className={`message-item ${chat.user._id === currentUser._id ? 'sender' : 'receiver'}`}>
                     {chat.image && (
                       <div>
                         <img
@@ -194,6 +206,7 @@ const CommunityListComponent = () => {
                           className="message-image"
                           onClick={() => zoomImage(`data:${chat.image.contentType};base64,${chat.image.data}`)}
                         />
+                   
                       </div>
                     )}
 
@@ -206,7 +219,7 @@ const CommunityListComponent = () => {
                      <h6 className={`message-user ${chat.user === currentUser._id ? 'sender' : 'receiver'}`}>
                         {chat.user.name || 'Unknown User'}
                       </h6>
-                      <p className={`message-text ${chat.user === currentUser._id ? 'sender' : 'receiver'}`}>
+                      <p className={`message-text ${chat.user._id === currentUser._id ? 'sender' : 'receiver'}`}>
                         {chat.message}
                       </p>
                     </div>
