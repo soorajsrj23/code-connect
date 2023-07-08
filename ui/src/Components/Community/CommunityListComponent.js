@@ -1,8 +1,9 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import io from 'socket.io-client';
-import { Row, Col, ListGroup, ListGroupItem, Media, Form, FormGroup, Input, Button } from 'reactstrap';
-import './CommunityListComponent.css'
+import { Row, Col, ListGroup, ListGroupItem, Form, Button } from 'reactstrap';
+import './CommunityListComponent.css';
+
 const CommunityListComponent = () => {
   const [communities, setCommunities] = useState([]);
   const [selectedCommunity, setSelectedCommunity] = useState(null);
@@ -35,12 +36,14 @@ const CommunityListComponent = () => {
 
   useEffect(() => {
     if (socket) {
-      socket.on('communityChat', (communityChatMessage) => {
+      socket.on('communityChat', (chatMessage) => {
         setSelectedCommunity((prevCommunity) => {
-          if (prevCommunity && prevCommunity._id === communityChatMessage.community) {
+          if (prevCommunity && prevCommunity._id === chatMessage.community) {
+            const updatedChat = [chatMessage, ...prevCommunity.chat];
+            scrollToLatestMessage();
             return {
               ...prevCommunity,
-              chat: [communityChatMessage.chat, ...prevCommunity.chat],
+              chat: updatedChat,
             };
           }
           return prevCommunity;
@@ -48,6 +51,24 @@ const CommunityListComponent = () => {
       });
     }
   }, [socket]);
+
+  useEffect(() => {
+    const fetchCommunityChats = async () => {
+      if (selectedCommunity) {
+        try {
+          const response = await axios.get(`http://localhost:4000/api/communityChats/${selectedCommunity._id}`);
+          setSelectedCommunity((prevCommunity) => ({
+            ...prevCommunity,
+            chat: response.data,
+          }));
+        } catch (error) {
+          console.error('Error fetching community chats:', error);
+        }
+      }
+    };
+
+    fetchCommunityChats();
+  }, [selectedCommunity]);
 
   const handleCommunityChatSubmit = (e) => {
     e.preventDefault();
@@ -59,10 +80,12 @@ const CommunityListComponent = () => {
       const chatData = {
         user: user,
         message: message,
-        image: image ? {
-          contentType: image.type,
-          data: image,
-        } : null,
+        image: image
+          ? {
+              contentType: image.type,
+              data: image,
+            }
+          : null,
       };
 
       socket.emit('communityChat', {
@@ -70,51 +93,28 @@ const CommunityListComponent = () => {
         communityChatMessage: chatData,
       });
 
-      // Update the UI with the new chat message
-      const newChatMessage = {
-        _id: Date.now().toString(),
-        user: chatData.user,
-        message: chatData.message,
-        image: chatData.image,
-      };
-
-      setSelectedCommunity((prevCommunity) => {
-        if (prevCommunity && prevCommunity._id === selectedCommunity._id) {
-          return {
-            ...prevCommunity,
-            chat: [newChatMessage, ...prevCommunity.chat],
-          };
-        }
-        return prevCommunity;
-      });
-      if (chatMessagesRef.current) {
-        chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
-      }
+      e.target.reset();
     }
-
-    
-
-    e.target.reset();
   };
 
-  const selectCommunity = async (community) => {
+  const selectCommunity = (community) => {
     setSelectedCommunity(null); // Clear the chat messages before selecting a new community
 
     if (socket) {
       socket.emit('joinCommunity', community._id);
 
-      try {
-        const response = await axios.get(`http://localhost:4000/api/communityChats/${community._id}`);
-        setSelectedCommunity({
-          ...community,
-          chat: response.data,
-        });
-      } catch (error) {
-        console.error('Error fetching community chats:', error);
-      }
+      setSelectedCommunity({
+        ...community,
+        chat: [],
+      });
     }
   };
 
+  const scrollToLatestMessage = () => {
+    if (chatMessagesRef.current) {
+      chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+    }
+  };
 
   const zoomImage = (imageSrc) => {
     setIsImageZoomed(true);
@@ -126,15 +126,13 @@ const CommunityListComponent = () => {
     setZoomedImageSrc('');
   };
 
-
-
   return (
-    <div className="container-fluid bg-dark text-white py-4" ref={chatMessagesRef}>
+    <div className="container-fluid bg-dark text-white py-4">
       <Row>
         <Col md={4} className="mb-4">
           <h2>Communities</h2>
           <ListGroup>
-          {communities.map((community) => (
+            {communities.map((community) => (
               <ListGroupItem
                 key={community._id}
                 onClick={() => selectCommunity(community)}
@@ -142,11 +140,7 @@ const CommunityListComponent = () => {
                 className={`community-item ${selectedCommunity && selectedCommunity._id === community._id ? 'active' : ''}`}
               >
                 <div className="community-icon">
-                <img
-              src= {`data:image/jpeg;base64,${community.icon.data}`}
-                 alt="Community Icon"
-           />
-          
+                  <img src={`data:image/jpeg;base64,${community.icon.data}`} alt="Community Icon" />
                 </div>
                 <div className="community-info">
                   <h5 className="community-name">{community.name}</h5>
@@ -162,54 +156,37 @@ const CommunityListComponent = () => {
               <div className="chat-header">
                 <h2 className="chat-title">{selectedCommunity.name}</h2>
               </div>
-              <div className="chat-messages" >
-              {selectedCommunity.chat.reverse().map((chat) => (
-  <div key={chat._id} className="message-item" >
-    {chat.image && (
-      <div  >
-         <img
-                    src={`data:${chat.image.contentType}};base64,${btoa(
-                      new Uint8Array(chat.image.data.data).reduce(
-                        (data, byte) => data + String.fromCharCode(byte),
-                        ''
-                      )
-                    )}`}
-                    alt=""
-                    className="message-image"
-                    onClick={() => zoomImage(`data:${chat.image.contentType};base64,${btoa(
-                      new Uint8Array(chat.image.data.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
-                    )}`)}
-                  />
-      </div>
-     
-    )}
- 
-    {!chat.image && (
-      <div className="no-image-placeholder"></div>
-    )}
-    <div  className="ml-3">
-      <h6 className="message-user">{chat.user || 'Unknown User'}</h6>
-      <p className="message-text">{chat.message}</p>
-    </div>
-  </div>
-))}
- 
+              <div className="chat-messages" ref={chatMessagesRef}>
+                {selectedCommunity.chat.map((chat) => (
+                  <div key={chat._id} className="message-item">
+                    {chat.image && (
+                      <div>
+                        <img
+                          src={`data:${chat.image.contentType};base64,${chat.image.data}`}
+                          alt=""
+                          className="message-image"
+                          onClick={() => zoomImage(`data:${chat.image.contentType};base64,${chat.image.data}`)}
+                        />
+                      </div>
+                    )}
+
+                    {!chat.image && <div className="no-image-placeholder"></div>}
+                    <div className="ml-3">
+                      <h6 className="message-user">{chat.user || 'Unknown User'}</h6>
+                      <p className="message-text">{chat.message}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
               <Form onSubmit={handleCommunityChatSubmit} className="chat-input">
-            
-                  <input type="text" name="message" placeholder="Message" required className="message-input" />
-                 
-                
-               <input type="file" name="image" className="d-none" id="imageInput" />
-             <label htmlFor="imageInput" className="attachment-icon">
-             <i class="bi bi-paperclip"></i>
-           </label>
-           
-           
+                <input type="text" name="message" placeholder="Message" required className="message-input" />
+                <input type="file" name="image" className="d-none" id="imageInput" />
+                <label htmlFor="imageInput" className="attachment-icon">
+                  <i className="bi bi-paperclip"></i>
+                </label>
                 <Button type="submit" color="primary" className="send-button">
-                <i class="bi bi-send-fill"></i>
+                  <i className="bi bi-send-fill"></i>
                 </Button>
-       
               </Form>
             </div>
           ) : (
@@ -218,17 +195,17 @@ const CommunityListComponent = () => {
         </Col>
       </Row>
       {isImageZoomed && (
-  <div className="modal-overlay">
-    <div className="modal-content">
-      <img src={zoomedImageSrc} alt="Zoomed Image" className="zoomed-image" />
-      <button className="modal-close" onClick={closeZoomedImage}>
-        &times;
-      </button>
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <img src={zoomedImageSrc} alt="Zoomed Image" className="zoomed-image" />
+            <button className="modal-close" onClick={closeZoomedImage}>
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
     </div>
-  </div>
-)}
-    </div>
-      );
+  );
 };
 
 export default CommunityListComponent;
