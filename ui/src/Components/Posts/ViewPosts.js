@@ -86,6 +86,7 @@ const ViewPosts = () => {
       const data = await response.json();
       console.log(data.message);
       setCommentText('');
+      setIsCommentModalOpen(false);
       fetchPosts();
     } catch (error) {
       console.error(error);
@@ -103,69 +104,107 @@ const ViewPosts = () => {
       return null;
     }
   };
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+  const [currentPostId, setCurrentPostId] = useState('');
 
+  // Function to open the comment modal
+  const openCommentModal = (postId) => {
+    setCurrentPostId(postId);
+    setIsCommentModalOpen(true);
+  };
+
+  // Function to close the comment modal
+  const closeCommentModal = () => {
+    setCurrentPostId('');
+    setCommentText('');
+    setIsCommentModalOpen(false);
+  };
 
 
 
 
   return (
     <div className='view-posts-container'>
-    <h1>All Posts</h1>
-    {posts.map((post) => (
-      <Card key={post._id} className="mb-4 " >
-        
-        <CardBody className='dark-card'>
-        <div className='post-owner-details'>
-          {post.userIcon ?  
-         <img  src={`data:${post.userIcon.contentType};base64,${post.userIcon.data}`} alt="" className='user-avatar' />      
-    :<i class="bi bi-person-circle"></i>}
-   
-   
-          <CardText className='text-white' tag="h2">{post.userName}</CardText>
-          </div>
-          <CardTitle className='text-white' tag="p">{post.caption}</CardTitle>
-          {post.image && displayImage(post.image)}
-          <div className='add-like' onClick={() => likePost(post._id)}>
-          <i class="bi bi-heart"></i>
-          </div>
-          <div className="comment-sent">
-            <input type="text" value={commentText} className='comment-input' onChange={handleCommentChange} />
-            <button  type="button" class="btn btn-outline-light btn-lg" onClick={() => addComment(post._id)}><i class="bi bi-send"></i></button>
-          </div>
-          <div className="mt-3">
-          <div className='text-white'>
-          <i class="bi bi-heart-fill"></i>
-            <p className='text-white' >Likes: {post.likes.length}</p>
+      {posts.map((post) => (
+        <div  className="card_in_less_size">
+        <Card key={post._id} className='mb-3' >
+          <CardBody className='dark-card'>
+            <div className='post-owner-details'>
+              {post.userIcon ?  
+                <img src={`data:${post.userIcon.contentType};base64,${post.userIcon.data}`} alt="" className='user-avatar' />      
+                : <i className="bi bi-person-circle"></i>
+              }
+              <CardText className='text-white' tag="h2">{post.userName}</CardText>
             </div>
-            <div className='text-white'>
-            <i class="bi bi-chat-left-text"></i>
-         
-            <p className='text-white'>Comments:</p>
+            <CardTitle className='text-white' tag="p">{post.caption}</CardTitle>
+            {post.image && displayImage(post.image)}
+            <div className='add-like' onClick={() => likePost(post._id)}>
+              <i className="bi bi-heart"></i>
             </div>
-            {post.comments.map((comment) => (
-              <div key={comment._id} className="d-flex align-items-center">
-               {userDetails[comment.user] && userDetails[comment.user].image && (
-  <img
-    src={`data:${userDetails[comment.user].image.contentType};base64,${Buffer.from(userDetails[comment.user].image.data.data).toString('base64')}`}
-    alt=""
-    className="rounded-circle mr-2"
-    width={30}
-    height={30}
-  />
-)}
-
-                {userDetails[comment.user] && (
-                  <p className="mb-0 text-white">
-                    {userDetails[comment.user].name || 'Unknown User'}: {comment.text}
-                  </p>
-                )}
+            <div className="comment-sent">
+              <input
+                type="text"
+                value={commentText}
+                className='comment-input'
+                onChange={handleCommentChange}
+                onClick={() => openCommentModal(post._id)}
+              />
+              <button type="button" className="btn btn-outline-light btn-lg" onClick={() => addComment(post._id)}>
+                <i className="bi bi-send"></i>
+              </button>
+            </div>
+            <div className="mt-3">
+              <div className='text-white'>
+                <i className="bi bi-heart-fill"></i>
+                <p className='text-white' >Likes: {post.likes.length}</p>
               </div>
-            ))}
+              <div className='text-white'>
+                <i className="bi bi-chat-left-text"></i>
+                <p className='text-white'>Comments:</p>
+              </div>
+              {post.comments.map((comment) => (
+                <div key={comment._id} className="d-flex align-items-center mt-2">
+                  {userDetails[comment.user] && userDetails[comment.user].image && (
+                    <img
+                      src={`data:${userDetails[comment.user].image.contentType};base64,${Buffer.from(userDetails[comment.user].image.data.data).toString('base64')}`}
+                      alt=""
+                      className="rounded-circle mr-2 ml-2"
+                      width={40}
+                      height={40}
+                    />
+                  )}
+
+                  {userDetails[comment.user] && (
+                    <p className="mb-0 text-white">
+                      {userDetails[comment.user].name || 'Unknown User'}: {comment.text}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </CardBody>
+          
+        </Card>
+        </div>
+      ))}
+
+      {/* Comment Modal */}
+      {isCommentModalOpen && (
+        <div className="comment-modal-overlay">
+          <div className="comment-modal">
+            <h2>Add Comment</h2>
+            <input
+              type="text"
+              value={commentText}
+              className='comment-input'
+              onChange={(e)=>setCommentText(e.target.value)}
+            />
+            <button type="button" onClick={() => addComment(currentPostId)}>Add Comment</button>
+            <button type="button" onClick={closeCommentModal}>Cancel</button>
           </div>
-        </CardBody>
-      </Card>
-    ))}
-  </div>
+        </div>
+      )}
+    </div>
   );
 };
 

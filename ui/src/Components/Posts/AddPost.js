@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import './AddPost.css';
 
 const AddPost = () => {
   const [caption, setCaption] = useState('');
   const [image, setImage] = useState(null);
+  const [selectedFileName, setSelectedFileName] = useState('');
+  const [imagePreview, setImagePreview] = useState(null); // State to store the image preview
 
-
-  const history=useNavigate();
+  const history = useNavigate();
 
   const handleCaptionChange = (e) => {
     setCaption(e.target.value);
   };
 
   const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    setImage(selectedFile);
+    setSelectedFileName(selectedFile.name);
+    // Create a preview URL for the selected image
+    setImagePreview(URL.createObjectURL(selectedFile));
   };
 
   const handleSubmit = async () => {
@@ -42,27 +47,36 @@ const AddPost = () => {
   };
 
   return (
-    <div>
-      <h2>Add Post</h2>
-      <div>
-        <label htmlFor="caption">Caption:</label>
-        <input
-          type="text"
-          id="caption"
-          value={caption}
-          onChange={handleCaptionChange}
-        />
+    <div className='mainParentdiv'>
+      <div className='add-post-container'>
+        <h2>Add Post</h2>
+        <div className='add-post-container'>
+          <label htmlFor="caption">Caption:</label>
+          <input
+            type="text"
+            id="caption"
+            value={caption}
+            onChange={handleCaptionChange}
+          />
+        </div>
+        <div>
+        <label htmlFor="fileInput" className="fileInputLabel">
+                  <div className='image_icon'>
+                  <i class="bi bi-file-earmark-plus-fill"></i>
+                </div>
+                  <input type="file" id="fileInput" className="fileInput" onChange={handleImageChange} />
+                </label>
+        </div>
+        {/* Show the selected image preview */}
+        {imagePreview && (
+          <div>
+            <img src={imagePreview} alt="Selected" height='50px' width='40px' className="image-preview" />
+          </div>
+        )}
+        {/* Display the selected file name */}
+        {selectedFileName && <p> {selectedFileName}</p>}
+        <button onClick={handleSubmit}>Submit</button>
       </div>
-      <div>
-        <label htmlFor="image">Image:</label>
-        <input
-          type="file"
-          id="image"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
-      </div>
-      <button onClick={handleSubmit}>Submit</button>
     </div>
   );
 };

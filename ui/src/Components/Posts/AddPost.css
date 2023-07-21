@@ -4,19 +4,23 @@
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #333;
+    border: 1px solid #1c1c1c;
     border-radius: 5px;
-    background-color: #2b2b2b; /* Dark background color */
+    background-color: #1c1c1c; /* Dark background color */
     color: #f1f1f1; /* Light text color */
   }
   
   .add-post-container h2 {
     margin-bottom: 20px;
+    background-color: #1c1c1c; /* Dark background color */
+    color: #f1f1f1;
   }
   
   .add-post-container label {
     display: block;
     margin-bottom: 5px;
+    background-color:  #1c1c1c; /* Dark background color */
+    color: #f1f1f1;
   }
   
   .add-post-container input[type="text"],
@@ -26,7 +30,7 @@
     margin-bottom: 10px;
     border: 1px solid #444;
     border-radius: 3px;
-    background-color: #444; /* Dark background color for inputs */
+    background-color: #1c1c1c; /* Dark background color for inputs */
     color: #f1f1f1; /* Light text color for inputs */
   }
   
@@ -44,7 +48,7 @@
   }
   
   /* Center the form in the middle of the screen */
-  body {
+  .mainParentdiv {
     margin: 0;
     height: 100vh; /* Set the height to full viewport height */
     display: flex;
@@ -55,6 +59,11 @@
   
   /* Reset the background to black for the outer container */
   .background-container {
-    background-color: #000;
+    background-color: #141414;
   }
+  .image_icon{
+    font-size: 54px;
+    align-items: center;
+    justify-content: space-between;
   
+  }
