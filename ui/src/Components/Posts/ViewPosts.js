@@ -97,29 +97,51 @@ const ViewPosts = () => {
       const imageBytes = Array.from(imageData.data.data, (byte) => String.fromCharCode(byte));
       const base64String = btoa(imageBytes.join(''));
       const imageUrl = `data:${imageData.contentType};base64,${base64String}`;
-      return <CardImg top src={imageUrl} alt="" />;
+      return <CardImg top src={imageUrl} alt=""  className="custom-card-img"/>;
     } catch (error) {
       console.error(error);
       return null;
     }
   };
+
+
+
+
+
   return (
-    <div>
+    <div className='view-posts-container'>
     <h1>All Posts</h1>
     {posts.map((post) => (
-      <Card key={post._id} className="mb-4 dark" >
-        <CardBody>
-          <CardTitle tag="h2">{post.caption}</CardTitle>
-          <CardText>{post.userEmail}</CardText>
+      <Card key={post._id} className="mb-4 " >
+        
+        <CardBody className='dark-card'>
+        <div className='post-owner-details'>
+          {post.userIcon ?  
+         <img  src={`data:${post.userIcon.contentType};base64,${post.userIcon.data}`} alt="" className='user-avatar' />      
+    :<i class="bi bi-person-circle"></i>}
+   
+   
+          <CardText className='text-white' tag="h2">{post.userName}</CardText>
+          </div>
+          <CardTitle className='text-white' tag="p">{post.caption}</CardTitle>
           {post.image && displayImage(post.image)}
-          <Button color="primary" onClick={() => likePost(post._id)}>Like</Button>
-          <div className="mt-3">
-            <Input type="textarea" value={commentText} onChange={handleCommentChange} />
-            <Button color="primary" onClick={() => addComment(post._id)}>Add Comment</Button>
+          <div className='add-like' onClick={() => likePost(post._id)}>
+          <i class="bi bi-heart"></i>
+          </div>
+          <div className="comment-sent">
+            <input type="text" value={commentText} className='comment-input' onChange={handleCommentChange} />
+            <button  type="button" class="btn btn-outline-light btn-lg" onClick={() => addComment(post._id)}><i class="bi bi-send"></i></button>
           </div>
           <div className="mt-3">
-            <p>Likes: {post.likes.length}</p>
-            <p>Comments:</p>
+          <div className='text-white'>
+          <i class="bi bi-heart-fill"></i>
+            <p className='text-white' >Likes: {post.likes.length}</p>
+            </div>
+            <div className='text-white'>
+            <i class="bi bi-chat-left-text"></i>
+         
+            <p className='text-white'>Comments:</p>
+            </div>
             {post.comments.map((comment) => (
               <div key={comment._id} className="d-flex align-items-center">
                {userDetails[comment.user] && userDetails[comment.user].image && (
@@ -133,7 +155,7 @@ const ViewPosts = () => {
 )}
 
                 {userDetails[comment.user] && (
-                  <p className="mb-0">
+                  <p className="mb-0 text-white">
                     {userDetails[comment.user].name || 'Unknown User'}: {comment.text}
                   </p>
                 )}

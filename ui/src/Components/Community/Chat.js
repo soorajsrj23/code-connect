@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import io from 'socket.io-client';
 import { useLocation } from 'react-router-dom';
-import { Container, Row, Col, Input, Button } from 'reactstrap';
+import { Container, Row, Col, Input } from 'reactstrap';
 import './Chat.css';
 
 const socket = io('http://localhost:4000', {
@@ -155,7 +155,7 @@ const Chat = () => {
                 >
                   {chat.message}
                 </span>
-                <span className="message-name">{chat.sender._id === senderId ? 'You' : recieverDetails.name}</span>
+                <span className="message-name">{chat.sender === senderId ? 'You' : recieverDetails.name}</span>
               </div>
             ))
           )
@@ -176,8 +176,7 @@ const Chat = () => {
           />
         </Col>
         <Col  >
-          <div className="send-button" onClick={handleSendMessage}>
-            
+          <div className="sendbutton" onClick={handleSendMessage}>
             <i class="bi bi-send-fill"  ></i>
           </div>
         </Col>

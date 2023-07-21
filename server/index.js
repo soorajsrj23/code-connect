@@ -251,6 +251,37 @@ io.on('connection', (socket) => {
   });
 });
 
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Find the user by email
+    const user = await User.findOne({ email }).maxTimeMS(30000);
+    console.log(user);
+    if (!user) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    // Compare the password
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    // Create a JWT token
+    const token = jwt.sign({ userId: user._id }, "secret-key");
+
+    // Set the token in the response header
+    
+    res.status(200).json({ token, message: "Login successful" });
+  } catch (error) {
+    console.error(error);
+    console.error(error.message);
+    res.status(500).json({ error: "An error occurred during login" });
+  }
+});
+
 
 app.get('/api/communities', async (req, res) => {
   try {
@@ -400,7 +431,7 @@ app.post('/signup', upload.single('image'), async (req, res) => {
   
     try {
       // Check if the email is already registered
-      const existingUser = await User.findOne({ email });
+      const existingUser = await User.findOne({ email }).maxTimeMS(30000);
       if (existingUser) {
         return res.status(400).send('Email already registered.');
       }
@@ -446,33 +477,6 @@ app.get("/current-user", authenticate, async (req, res) => {
 
 
 
-app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    // Find the user by email
-    const user = await User.findOne({ email });
-    console.log(user);
-    if (!user) {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
-
-    // Compare the password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
-
-    // Create a JWT token
-    const token = jwt.sign({ userId: user._id }, "secret-key");
-
-    // Set the token in the response header
-    res.status(200).json({ token, message: "Login successful" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "An error occurred during login" });
-  }
-});
 
 app.put("/edit-profile", authenticate, upload.single("image"), async (req, res) => {
   const { email, password, name,bio,phone } = req.body;
@@ -590,7 +594,11 @@ app.post('/posts', authenticate, upload.single('image'), async (req, res) => {
   try {
     const newPost = new Post({
       user: currentUser._id,
-      userEmail: currentUser.email,
+      userIcon:{
+        data:currentUser.image.data,
+        contentType:currentUser.image.contentType
+      },
+      userName: currentUser.name,
       caption,
       image: {
         data: req.file.buffer,

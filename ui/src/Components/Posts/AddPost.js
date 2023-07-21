@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const AddPost = () => {
   const [caption, setCaption] = useState('');
   const [image, setImage] = useState(null);
+
+
+  const history=useNavigate();
 
   const handleCaptionChange = (e) => {
     setCaption(e.target.value);
@@ -30,6 +35,7 @@ const AddPost = () => {
       // Clear the form inputs after submission
       setCaption('');
       setImage(null);
+      history('/view-post')
     } catch (error) {
       console.error(error);
     }

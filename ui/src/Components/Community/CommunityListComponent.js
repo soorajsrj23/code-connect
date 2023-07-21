@@ -172,6 +172,7 @@ const CommunityListComponent = () => {
           src={`data:${community.icon.contentType};base64,${btoa(
             new Uint8Array(community.icon.data.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
           )}`}/>
+          
                 </div>
                 <div className="community-info">
                   <h5 className="community-name">{community.name}</h5>

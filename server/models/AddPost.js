@@ -6,7 +6,11 @@ const postSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
-  userEmail: {
+  userIcon : {
+    data: String,
+    contentType: String,
+  },
+  userName: {
     type: String,
     required: true,
   },

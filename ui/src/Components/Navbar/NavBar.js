@@ -1,10 +1,11 @@
 import React from 'react';
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
-
+import './NavBar.css'
 const UserNavbar = () => {
   return (
+    <div className='NavBar'>
     <Navbar color="dark" dark expand="md" >
-      <NavbarBrand href="/">Logo</NavbarBrand>
+      <NavbarBrand href="/">Code Connect</NavbarBrand>
       <Nav className="mr-auto">
         <NavItem>
           <NavLink href="/search">
@@ -21,8 +22,6 @@ const UserNavbar = () => {
           <i class="bi bi-people-fill"></i>
           </NavLink>
         </NavItem>
-      </Nav>
-      <Nav>
         <NavItem>
           <NavLink href="/view-post">
           <i class="bi bi-images"></i>
@@ -30,6 +29,7 @@ const UserNavbar = () => {
         </NavItem>
       </Nav>
     </Navbar>
+    </div>
   );
 };
 

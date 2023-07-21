@@ -1,0 +1,60 @@
+/* AddPost.css */
+
+.add-post-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #2b2b2b; /* Dark background color */
+    color: #f1f1f1; /* Light text color */
+  }
+  
+  .add-post-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .add-post-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .add-post-container input[type="text"],
+  .add-post-container input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #444;
+    border-radius: 3px;
+    background-color: #444; /* Dark background color for inputs */
+    color: #f1f1f1; /* Light text color for inputs */
+  }
+  
+  .add-post-container button {
+    background-color: #3897f0;
+    color: #f1f1f1; /* Light text color for button */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-post-container button:hover {
+    background-color: #3377d8;
+  }
+  
+  /* Center the form in the middle of the screen */
+  body {
+    margin: 0;
+    height: 100vh; /* Set the height to full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000; /* Black background for the entire screen */
+  }
+  
+  /* Reset the background to black for the outer container */
+  .background-container {
+    background-color: #000;
+  }
+  
