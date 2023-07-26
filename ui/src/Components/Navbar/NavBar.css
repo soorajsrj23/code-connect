@@ -1,5 +1,39 @@
+/* Your other CSS rules... */
+
 .Navbar {
-    height: 50px; 
-    align-items: center;
-    justify-content: space-between;
+  height: 80px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar i {
+  font-size: 18px;
+  color: #fff;
+  display: inline-block; /* Add this line to ensure icons take up the correct space */
+}
+
+.navbar .nav-item {
+  margin-left: 10px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.navbar i:hover {
+  color: #b5b5b5;
+  transition: 0.5s;
+  font-size: 20px;
+  line-height: 18px; /* Set a fixed line-height for the icon on hover */
+}
+
+/* Add the following style to revert the line-height to default when not hovering */
+.navbar i:not(:hover) {
+  line-height: 18px;
+}
+@media (max-width: 768px) {
+  .NavBar .desktop-text {
+    display: none;
   }
+}

@@ -4,12 +4,17 @@ const bcrypt = require('bcrypt');
 const multer = require('multer');
 const cors = require('cors');
 const jwt = require("jsonwebtoken");
+const nodemailer = require('nodemailer');
 
 const app = express();
 const port = 4000;
 app.use(express.json());
 
+
+
+const JobPost=require('../server/models/JobPost')
 const Post=require('../server/models/AddPost')
+const Company=require('../server/models/Company')
 
 
 // Connect to MongoDB
@@ -172,6 +177,43 @@ const authenticate = async (req, res, next) => {
   }
 };
 
+const authenticateComapany = async (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  try {
+    const payload = jwt.verify(token, "secret-key");
+    const companyId = payload.companyId;
+    console.log("token is ", companyId);
+
+    // Find the user by ID
+    const company = await Company.findById(companyId);
+    console.log("token is ", company);
+
+    if (!company) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    // Convert image data to base64 string
+    const base64Image = company.image.data.toString("base64");
+
+    // Create a modified user object with the encoded image
+    const modifiedCompany = {
+      ...company._doc,
+      image: {
+        data: base64Image,
+        contentType: company.image.contentType,
+      },
+    };
+    req.company = modifiedCompany;
+    next();
+  } catch (error) {
+    console.log("errrrrr");
+    res.status(401).json({ error: "Unauthorized" });
+  }
+};
 
 
 
@@ -418,12 +460,6 @@ app.get('/user/:id', async (req, res) => {
 
 
 
-// Configure multer for file uploads
-
-
-// Enable CORS
-
-
 // Handle user registration
 app.post('/signup', upload.single('image'), async (req, res) => {
     const { name, email, password, bio, phone } = req.body;
@@ -454,7 +490,7 @@ app.post('/signup', upload.single('image'), async (req, res) => {
       });
   
       await newUser.save();
-  
+    
       const token = jwt.sign({ userId: newUser._id }, "secret-key");
       res.setHeader("Authorization", token);
       res.status(200).json({ message: "User registered successfully" });
@@ -462,8 +498,132 @@ app.post('/signup', upload.single('image'), async (req, res) => {
       console.error(error);
       res.status(500).send('Error registering user.');
     }
+
+    try {
+
+      const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+              
+          to: email,
+          subject: "Sending Email With React And Nodejs",
+          html: `
+          <h1>Welcome to codeConnect!</h1>
+          <p>
+            Congratulations on joining codeConnect! We are excited to have you as a member of our developer community.
+          </p>
+          <p>
+            codeConnect is a platform for developers to connect, collaborate, and share their knowledge and projects with other like-minded individuals. Whether you are an experienced developer or just starting your journey, you'll find a supportive community here to help you grow and learn.
+          </p>
+          <p>
+            We hope you have a great time exploring the platform and connecting with fellow developers. If you have any questions or need assistance, feel free to reach out to our support team.
+          </p>
+          <p>
+            Happy coding!
+          </p>
+          <p>
+            The codeConnect Team
+          </p>
+        `,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+              console.log("Error" + error)
+          } else {
+              console.log("Email sent:" + info.response);
+              res.status(201).json({status:201,info})
+          }
+      })
+
+  } catch (error) {
+      console.log("Error" + error);
+      res.status(401).json({status:401,error})
+  }
+
   });
   
+
+
+  app.post('/company-signup', upload.single('image'), async (req, res) => {
+    const { companyName, email, password, Industry, phone } = req.body;
+    const { originalname, mimetype, buffer } = req.file;
+  
+    try {
+      // Check if the email is already registered
+      const existingCompany = await Company.findOne({ email }).maxTimeMS(30000);
+      if (existingCompany) {
+        return res.status(400).send('Email already registered.');
+      }
+  
+      // Hash the password
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+  
+      // Create a new user
+      const newCompany = new Company({
+        companyName,
+        email,
+        password: hashedPassword,
+        image: {
+          data: buffer,
+          contentType: mimetype
+        },
+        Industry,
+        phone
+      });
+  
+      await newCompany.save();
+    
+      const token = jwt.sign({ companyId: newCompany._id }, "secret-key");
+      res.setHeader("Authorization", token);
+      res.status(200).json({ message: "Company registered successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error registering Company.');
+    }
+
+
+});
+
+
+app.post("/company-login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Find the user by email
+    const company = await Company.findOne({ email }).maxTimeMS(30000);
+    console.log(company);
+    if (!company) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    // Compare the password
+
+    const isPasswordValid = await bcrypt.compare(password, company.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    // Create a JWT token
+    const token = jwt.sign({ companyId: company._id }, "secret-key");
+
+    // Set the token in the response header
+    
+    res.status(200).json({ token, message: "Login successful" });
+  } catch (error) {
+    console.error(error);
+    console.error(error.message);
+    res.status(500).json({ error: "An error occurred during login" });
+  }
+});
+
+
+
+app.get("/company-profile", authenticateComapany, async (req, res) => {
+  res.status(200).json(req.company);
+});
+
 
 
 app.get("/profile", authenticate, async (req, res) => {
@@ -745,8 +905,55 @@ app.post('/api/search', async (req, res) => {
 });
 
 
+app.post('/add-job-post', authenticateComapany,upload.single('image'), async (req, res) => {
+  const { title,description,salary,qualifications,location,skills } = req.body;
+  const currentCompany = req.company;
 
-// //real time chat section
+  try {
+    const newJobPost = new JobPost({
+    
+      title,
+      description,
+      salary,
+      qualifications,
+      location,
+      skills, 
+    });
+
+    await newJobPost.save();
+
+    res.status(200).json({ message: 'Post created successfully' });
+  } catch (error) {
+    console.error(error);
+    console.log("current company"+currentCompany)
+    res.status(500).json({ error: 'Error creating post' ,currentCompany});
+  }
+});
+
+
+
+app.get('/job-posts', authenticateComapany,async (req, res) => {
+  try {
+    const jobPosts = await JobPost.find().sort({ createdAt: -1 }).populate( 'companyName');
+    res.status(200).json(jobPosts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error retrieving posts' });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 const PORT = 4000;

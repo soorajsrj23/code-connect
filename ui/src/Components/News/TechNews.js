@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './TechNews.css';
+import SmallNavbar from '../Navbar/SmallNavbar';
 
 const TechNews = () => {
   const [articles, setArticles] = useState([]);
@@ -27,6 +28,7 @@ const TechNews = () => {
 
   return (
     <div className="tech-news-container">
+      <SmallNavbar/>
       <h2 className="tech-news-heading">Tech News</h2>
       {articles.map((article, index) => (
         <div

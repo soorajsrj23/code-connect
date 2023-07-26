@@ -67,7 +67,7 @@ const SignUp = () => {
                 )}
                 <label htmlFor="fileInput" className="fileInputLabel">
                   <div className='add_icon'>
-                  <p>hello</p>
+                  <i class="bi bi-person-bounding-box"></i>
                 </div>
                   <input type="file" id="fileInput" className="fileInput" onChange={handleFileSelect} />
                 </label>

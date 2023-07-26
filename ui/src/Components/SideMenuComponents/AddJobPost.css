@@ -1,0 +1,9 @@
+/* Form.css */
+
+
+  .dark-textarea {
+    background-color: transparent;
+    color: #fff;
+    resize: vertical;
+    min-height: 100px;
+  }

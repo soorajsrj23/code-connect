@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, Input, Button } from 'reactstrap';
 import './ViewPosts.css'
+import SmallNavBar from '../Navbar/SmallNavbar'
 const ViewPosts = () => {
   const [posts, setPosts] = useState([]);
   const [commentText, setCommentText] = useState('');
@@ -125,6 +126,7 @@ const ViewPosts = () => {
 
   return (
     <div className='view-posts-container'>
+      <SmallNavBar/>
       {posts.map((post) => (
         <div  className="card_in_less_size">
         <Card key={post._id} className='mb-3' >

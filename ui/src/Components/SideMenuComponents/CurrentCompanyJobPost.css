@@ -1,0 +1,31 @@
+.job-post {
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    padding: 16px;
+    margin-bottom: 20px;
+    background-color: #1e1616;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: #e1e1e1;
+  }
+  
+  .job-title {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  
+  .job-description {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  
+  .job-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 8px;
+  }
+  
+  .job-details p {
+    font-size: 14px;
+    margin: 0;
+  }
+  

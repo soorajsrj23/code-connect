@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './AddPost.css';
+import SmallNavbar from '../Navbar/SmallNavbar';
 
 const AddPost = () => {
   const [caption, setCaption] = useState('');
@@ -48,6 +49,7 @@ const AddPost = () => {
 
   return (
     <div className='mainParentdiv'>
+<SmallNavbar/>      
       <div className='add-post-container'>
         <h2>Add Post</h2>
         <div className='add-post-container'>

@@ -1,0 +1,63 @@
+/* SmallNavbar.css */
+.NavBar {
+    background-color: #343a40; 
+    height: 65px;
+  }
+  
+  .Navbar {
+    padding: 5px 10px; 
+  }
+  
+  .NavbarBrand {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    font-size: 20px; 
+    color: white; 
+  }
+  
+  .NavItem {
+    margin: 0 10px; 
+  }
+  
+  .bi {
+    font-size: 20px;
+    color: white; 
+  }
+  
+  .desktop-text {
+    text-align: center;
+    font-size: 12px; /* Adjust the text size */
+    margin: 0;
+    padding-top: 2px; /* Adjust the vertical padding to center text */
+    color: white; /* Change the color of the text */
+  }
+  
+  /* Add a hover effect for the NavLink */
+  .NavLink:hover {
+    background-color: #495057; /* Adjust the hover background color */
+  }
+  
+  /* Optional: Add a transition effect for smooth hover */
+  .NavLink {
+    transition: background-color 0.2s ease-in-out;
+  }
+  .dropdown-toggle.nav-item-container {
+    color: white;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    background-color: #343a40; /* Background color for the dropdown menu */
+    border: none; /* Remove the default border */
+  }
+  
+  /* Style for the dropdown items */
+  .dropdown-item {
+    color: white;
+    background-color: #343a40;
+  }
+  
+  
+ 
+  

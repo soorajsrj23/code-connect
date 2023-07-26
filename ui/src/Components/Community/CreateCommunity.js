@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
+import './CreateCommunity.css'
 import axios from 'axios';
+import { Container, Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { useNavigate } from 'react-router-dom';
+import SmallNavbar from '../Navbar/SmallNavbar';
 
 const CreateCommunity = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [icon, setIcon] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
+
+  const history=useNavigate();
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
@@ -15,7 +22,12 @@ const CreateCommunity = () => {
   };
 
   const handleIconChange = (e) => {
-    setIcon(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setIcon(selectedFile);
+      const objectURL = URL.createObjectURL(selectedFile);
+      setSelectedImage(objectURL);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -32,34 +44,57 @@ const CreateCommunity = () => {
           Authorization:localStorage.getItem('token')
         },
       });
-      console.log(response.data); // Handle success response
+      console.log(response.data);
+      history('/communities')
+      // Handle success response
     } catch (error) {
       console.error(error); // Handle error
     }
   };
 
   return (
-    <div>
-      <h1>Create Community</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input type="text" value={name} onChange={handleNameChange} />
-        </label>
-        <br />
-        <label>
-          Description:
-          <textarea value={description} onChange={handleDescriptionChange} />
-        </label>
-        <br />
-        <label>
-          Icon:
-          <input type="file" onChange={handleIconChange} />
-        </label>
-        <br />
-        <button type="submit">Create</button>
-      </form>
-    </div>
+    
+   
+    <Container fluid className='Main-Container'>
+       <SmallNavbar />
+      <div className="community-form">
+        <h2 className='heading-create'>Create Community</h2>
+        <Form onSubmit={handleSubmit}>
+          <FormGroup>
+            <Label for="name">Name:</Label>
+            <input type="text" value={name} onChange={handleNameChange} />
+          </FormGroup>
+          <FormGroup>
+            <Label for="description">Description:</Label>
+            <input type="text" value={description} onChange={handleDescriptionChange} />
+          </FormGroup>
+          <FormGroup>
+            <Label for="icon">Icon:</Label>
+            <div className="custom-file-input">
+              <input type="file" id="icon" onChange={handleIconChange} />
+              <label htmlFor="icon">
+                {icon ? (
+                  <span>Selected File: {icon.name}</span>
+                ) : (
+                  <span><i class="bi bi-image-fill"></i></span>
+                )}
+              </label>
+            </div>
+            
+          </FormGroup>
+          {selectedImage && (
+            <div className="community-info">
+              <img src={selectedImage} alt="Selected Community Icon" className="selected-image" />
+              <h3>{name}</h3>
+              <p>{description}</p>
+            </div>
+          )}
+          <br />
+          <Button type="submit" color="primary">Create</Button>
+        </Form>
+      </div>
+    </Container>
+
   );
 };
 

@@ -110,6 +110,7 @@
     overflow: hidden;
     margin-bottom: 10px;
     position: relative;
+    background-color: #0c67e7;
   }
   
   .selected-image {
@@ -124,5 +125,5 @@
     justify-content: flex-end; /* Aligns content to the right */
     align-items: flex-end; /* Aligns content to the bottom */
     margin-top: 75px;
-    
+    font-size: 40px;
   }

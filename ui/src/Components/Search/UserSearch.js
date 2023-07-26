@@ -104,7 +104,7 @@ const UserSearch = () => {
           
           alt="Profile" className="profile-image" />
           <h3>{user.name}</h3>
-          <p>{user._id}</p>
+          <p hidden>{user._id}</p>
           <button onClick={() => handleChatClick(user._id)}>Chat</button>
         </div>
       ))}
@@ -113,10 +113,10 @@ const UserSearch = () => {
   
           {currentUser ? (
             <div>
-              <p>ID: {currentUser._id}</p>
+              <p hidden>ID: {currentUser._id}</p>
             </div>
           ) : (
-            <div>Loading current user...</div>
+            <div>Loading... </div>
           )}
      
       </div>

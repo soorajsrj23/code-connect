@@ -1,86 +1,151 @@
+/* CurrentUserPosts.css */
+
 .post-list {
-  padding: 20px;
-  background-color: rgb(35, 35, 43);
-  color: white;
-  border-radius: 5xp;
+  margin: 20px;
+ overflow-y: hidden;
+ height: 560px;
 }
 
 .post-list h1 {
+  text-align: center;
   margin-bottom: 20px;
 }
 
 .post-list-scrollable {
-  height: 400px; /* Adjust the height as per your requirements */
-  overflow-y: scroll;
+  max-height: 490px;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 
-
-.post-list-scrollable::-webkit-scrollbar {
-  width: 10px; /* Width of the scroll bar */
+.post-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
 }
-
-.post-list-scrollable::-webkit-scrollbar-track {
-  background-color: #22212a; /* Track color */
-}
-
-.post-list-scrollable::-webkit-scrollbar-thumb {
-  background-color: #888; /* Thumb color */
-  border-radius: 5px; /* Border radius of the thumb */
-}
-
-.post-list-scrollable::-webkit-scrollbar-thumb:hover {
-  background-color: #555; /* Thumb color on hover */
-}
-
-
-
-
-
-
 
 .post-item {
-  margin-bottom: 20px;
+
+  border-radius: 10px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .post-image {
   cursor: pointer;
+  overflow: hidden; /* Hide any overflowing content */
+  height: 190px;
+  width: 280px; 
+  align-items: center;
+  justify-content: space-between;
+  /* Set a fixed height for the image container */
+}
+
+.post-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .post-details {
-  margin-top: 10px;
+  padding: 10px;
+}
+.trash{
+  cursor: pointer;
+}
+.trash :hover{
+  cursor: pointer;
+  color: red;
+  font-size: 20px;
+  transition: 0.5s;
 }
 
+
 .post-details p {
-  margin-bottom: 5px;
+  margin: 5px;
+  display: inline-block;
 }
 
 .post-details button {
-  background-color: #f44336;
-  color: white;
-  border: none;
+  margin: 5px;
   padding: 5px 10px;
-  border-radius: 4px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 .post-details button:hover {
-  background-color: #d32f2f;
+  background-color: #2980b9;
+}
+
+.post-details p.likes {
+  font-weight: bold;
+}
+
+.post-details p.comments {
+  color: #999;
+}
+
+.modal-dialog {
+  max-width: 800px;
 }
 
 .modal-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  text-align: left;
+  background-color: #061925;
+  color: white;
 }
 
 .modal-body img {
   max-width: 100%;
-  max-height: 400px;
-  margin-bottom: 10px;
+  height: auto;
+  margin-bottom: 20px;
 }
 
 .modal-body p {
-  margin-bottom: 5px;
+  margin: 5px;
+  color: white;
+}
+
+/* Customize the scrollbar */
+.post-list-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.post-list-scrollable::-webkit-scrollbar-thumb {
+  background-color: #3a3737;
+  border-radius: 5px;
+}
+
+.post-list-scrollable::-webkit-scrollbar-thumb:hover {
+  background-color: #666666;
+  border-radius: 10px;
+}
+
+.post-list-scrollable::-webkit-scrollbar-track {
+  background-color: #272727;
+}
+.commentWithName{
+  display: flex;
+}
+.likeWithName{
+  display: inline-block; 
+}
+.likeWithNameSection{
+  display: flex;
+}
+.commentWithNameSection{
+  display: inline-block;
+}
+
+.profile-pic img {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  overflow: hidden;
 }

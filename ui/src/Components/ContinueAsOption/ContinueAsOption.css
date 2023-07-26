@@ -1,0 +1,51 @@
+
+/* UserType.css */
+/* UserType.css */
+.user-type-container {
+    height: 100vh; /* Set the container height to full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .company {
+    padding: 15px 25px;
+    margin: 15px; /* Add space between buttons */
+    background-color: #3a3a3a; /* Red color for Company button */
+    border: 6px solid #3a3a3a; /* Company button border color */
+    color: #fff;
+    font-size: 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s; /* Add border color to transition on hover */
+  }
+  
+  .developer {
+    padding: 15px 25px;
+    margin: 15px; /* Add space between buttons */
+    background-color: #3a3a3a; /* Red color for Company button */
+    border: 6px solid #3a3a3a; /* Developer button border color */
+    color: #fff;
+    font-size: 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s; /* Add border color to transition on hover */
+  }
+  
+  .company:hover,
+  .developer:hover {
+    
+    border-color: #0ceb0c92; /* Darker border color on hover */
+  }
+  
+  
+.titleOfCompany{
+    font-family: 'Roboto', sans-serif;
+  font-weight: 300; /* Thin font weight */
+  font-size: 30px;
+}
+.titleOfDeveloper{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300; 
+    font-size: 30px;
+}

@@ -130,8 +130,8 @@ const Chat = () => {
         )}
         <h4>{recieverDetails.name}</h4>
       </div>
-      <p>sender{sender}</p>
-      <p>reciver{receiver}</p>
+      <p hidden>sender{sender}</p>
+      <p hidden>reciver{receiver}</p>
 
       <Row className="chat-status">
         <Col>{isConnected ? <div>User connected</div> : <div>User disconnected</div>}</Col>
@@ -144,7 +144,7 @@ const Chat = () => {
           ) : (
             messages.map((chat) => (
               <div
-                className={`chat-message ${chat.sender === senderId ? 'sender' : 'receiver'}`}
+                className={`message-item ${chat.sender._id === senderId ? 'sender' : 'receiver'}`}
                 key={chat._id}
               >
                 <br />

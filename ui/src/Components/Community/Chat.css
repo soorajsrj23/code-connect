@@ -9,6 +9,7 @@
   padding: 20px;
   background-color: black;
   padding-bottom: 10px;
+  height: 100vh;
 }
 
 .profile-part {
@@ -46,6 +47,22 @@
 .chat-message {
   margin-bottom: 10px;
 }
+
+.message-item {
+  display: flex;
+  margin-bottom: 10px; 
+  margin-right: 10px;
+}
+
+.sender .message-item {
+  justify-content: flex-end;
+ 
+}
+
+.receiver .message-item {
+  justify-content: flex-start;
+}
+
 
 .sender {
   display: flex;
