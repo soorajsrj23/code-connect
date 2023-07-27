@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './JobPost.css';
 import SmallNavbar from '../Navbar/SmallNavbar';
-
+import axios from 'axios';
 function JobPost() {
   const [jobPosts, setJobPosts] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null); // State to keep track of the selected job post
@@ -13,11 +13,7 @@ function JobPost() {
 
   const fetchJobPosts = async () => {
     try {
-      const response = await fetch('http://localhost:4000/all-jobs', {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
-      });
+      const response = await fetch('http://localhost:4000/all-jobs' );
       const data = await response.json();
       setJobPosts(data);
     } catch (error) {
@@ -35,6 +31,29 @@ function JobPost() {
   const closePopup = () => {
     setShowPopup(false);
   };
+
+
+  const applyForJob = async (IdOfApplicant) => {
+    const jobId = IdOfApplicant;
+    console.log("jobId" + jobId);
+    try {
+      // Send a POST request to create a new post
+      const response = await axios.post(
+        'http://localhost:4000/selected-job',
+        { jobId }, // Send the jobId as an object in the request body
+        {
+          headers: {
+            Authorization: localStorage.getItem('token'), // Send the JWT token for authentication
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+      console.log(error.message);
+    }
+  };
+  
 
   return (
     <div className='MainJobPost'>
@@ -58,15 +77,15 @@ function JobPost() {
                   />
                 )}
                 <h2>{job.companyName}</h2>
-                <p className="industry">{job.industry}</p>
               </div>
               <div className="job-details">
-                <h3>{job.title}</h3>
-                <p className="duration">{job.duration}</p>
-                <p className="salary">{job.salary}</p>
-              </div>
-              <p className="job-description">{job.description}</p>
               
+                <h3>{job.title}</h3>
+                <div className='location'>
+                <i class="bi bi-geo-alt-fill"></i> 
+                <p>{job.location}</p>   
+                </div>   
+              </div>           
             </div>
           ))
         )}
@@ -75,13 +94,30 @@ function JobPost() {
         <div className="popup">
           <div className="popup-content">
             <span className="close-btn" onClick={closePopup}>&times;</span>
-            <h2>{selectedJob.companyName}</h2>
-            <p className="industry">{selectedJob.industry}</p>
-            <h3>{selectedJob.title}</h3>
+             <div className='group'>
+            <i class="bi bi-building"></i>
+            <h3>{selectedJob.companyName}</h3>
+            </div>
+            <div className='group'>
+            <i class="bi bi-briefcase-fill"></i>
+            <h4>{selectedJob.title}</h4>
+            </div>
+            <div className='group'>
+            <i class="bi bi-clock-fill"></i>
             <p className="duration">{selectedJob.duration}</p>
+            </div>
+            <div className='group'>
+            <i class="bi bi-wallet2"></i>
             <p className="salary">{selectedJob.salary}</p>
+            </div>
+            <div className='group'>
+            <i class="bi bi-info-square-fill"></i>
+            <p className='duty'>Description</p>
             <p className="job-description">{selectedJob.description}</p>
-            <button className="apply-button">Apply</button>
+            </div>
+
+            <button className="apply-button"  onClick={() => applyForJob(selectedJob._id)} >Apply</button>
+
           </div>
         </div>
       )}

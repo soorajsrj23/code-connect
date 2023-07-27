@@ -15,6 +15,7 @@
   overflow-y: auto; /* Set to 'scroll' if you want a visible scrollbar at all times */
   padding: 10px;
   color: #ffffff;
+  
 }
 
 
@@ -65,12 +66,23 @@
 .job-details {
   padding: 20px;
   border-top: 1px solid #e5e5e5;
+  display: inline-block;
+  word-wrap: break-word;
+  /* Hide any content that overflows the container */
+  overflow: hidden;
+  /* Display ellipsis (...) when content is truncated */
+  text-overflow: ellipsis;
 }
 
 .job-details h3 {
   margin: 0;
   font-size: 1.2rem;
   color: #ffffff;
+}
+.location{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 
 .duration,
@@ -152,26 +164,32 @@
 }
 
 .popup-content .industry {
-  color: #777;
-}
-
-.popup-content h3 {
-  font-size: 20px;
-  margin-top: 20px;
-  margin-bottom: 10px;
+  color: #fefcfc;
 }
 
 .popup-content .duration, .popup-content .salary {
-  color: #555;
-  margin-bottom: 5px;
+  color: #f3f3f3;
+
 }
 
 .popup-content .job-description {
-  color: #333;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  color: #f7f3f3;
 }
+.popup-content .group
+{
+display: flex;
+flex-direction: row;
 
+}
+.popup-content .group i
+{
+
+padding-right: 10px;
+}
+.popup-content .duty
+{
+  display: inline-block;
+}
 .apply-button {
   padding: 8px 16px;
   background-color: #2faaec;

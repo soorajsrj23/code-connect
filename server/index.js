@@ -502,15 +502,7 @@ app.post('/signup', upload.single('image'), async (req, res) => {
     try {
 
       const transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-              user: 'srjdev019@gmail.com',
-              pass: 'zknimqgpdlgidycz'
-          }
-      });
-
-      const mailOptions = {
-          from:'srjdev019@gmail.com',
+       
           to: email,
           subject: "Sending Email With React And Nodejs",
           html: `
@@ -941,8 +933,6 @@ app.post('/add-job-post', authenticateComapany,upload.single('image'), async (re
   }
 });
 
-
-
 app.get('/job-posts', authenticateComapany,async (req, res) => {
   try {
     const jobPosts = await JobPost.find().sort({ createdAt: -1 }).populate( 'companyName');
@@ -953,7 +943,7 @@ app.get('/job-posts', authenticateComapany,async (req, res) => {
   }
 });
 
-app.get('/all-jobs', authenticate,async (req, res) => {
+app.get('/all-jobs',async (req, res) => {
   try {
     const jobs = await JobPost.find();
     res.json(jobs);
@@ -964,17 +954,44 @@ app.get('/all-jobs', authenticate,async (req, res) => {
 });
 
 
+app.post('/selected-job', authenticate, async (req, res) => {
+  const { jobId } = req.body;
+  const applicantId = req.user._id; // Assuming the authenticated user's ID is in the req.user object
+  const applicantName = req.user.name; // Assuming the authenticated user's name is in the req.user object
 
 
+   console.log({jobId});
+  try {
+    // Find the job post by its ID
+    const job = await JobPost.findById(jobId);
 
+    if (!job) {
+      return res.status(404).json({ error: 'Job not found' });
+    }
 
+   
+    const hasApplied = job.applicantId.some(
+      (applicant) => applicant.developerId.toString() === applicantId.toString()
+    );
 
+    if (hasApplied) {
+      return res.status(400).json({ error: 'You have already applied to this job' });
+    }
+   
+    const newApplication = {
+      developerId: applicantId,
+      developerName: applicantName,
+    };
 
+    job.applicantId.push(newApplication);
+    await job.save();
 
-
-
-
-
+    res.status(200).json({ message: 'Applied successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error while applying' });
+  }
+});
 
 
 

@@ -19,11 +19,11 @@ const jobPostSchema = new mongoose.Schema({
     skills:String,
     applicantId: [
       {
-        developer: {
+        developerId: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User',
         },
-        name:{
+        developerName:{
           type:String
         }
       },
