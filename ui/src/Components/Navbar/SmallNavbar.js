@@ -56,6 +56,14 @@ const SmallNavbar = () => {
             </NavLink>
           </NavItem>
           <NavItem>
+            <NavLink href="/jobs">
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <i className="bi bi-briefcase-fill" style={{ ...iconStyles, fontSize: '18px' }}></i>
+                <p className="desktop-text" style={textStyles}>Jobs</p>
+              </div>
+            </NavLink>
+          </NavItem>
+          <NavItem>
             <UncontrolledDropdown nav inNavbar >
               <DropdownToggle nav caret className="nav-item-container">
                 <div className="nav-item-container">

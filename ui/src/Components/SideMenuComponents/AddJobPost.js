@@ -23,19 +23,18 @@ const SimpleForm = () => {
     e.preventDefault();
 
     try {
-      // Send form data to the backend API
-      const response = await axios.post(
-        'http://localhost:4000/add-job-post',
-        formData
-      );
-      // Handle successful response, if needed
-      console.log('Job post added successfully:', response.data);
+      // Send a POST request to create a new post
+      const response = await axios.post('http://localhost:4000/add-job-post', formData, {
+        headers: {
+          Authorization: localStorage.getItem('token'), // Send the JWT token for authentication
+        },
+      })
+      console.log(response.data);
+
     } catch (error) {
-      // Handle error
-      console.error('Error adding job post:', error.message);
+      console.error(error);
     }
   };
-
 
   return (
     <div>

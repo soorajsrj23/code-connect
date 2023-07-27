@@ -504,7 +504,13 @@ app.post('/signup', upload.single('image'), async (req, res) => {
       const transporter = nodemailer.createTransport({
           service: "gmail",
           auth: {
-              
+              user: 'srjdev019@gmail.com',
+              pass: 'zknimqgpdlgidycz'
+          }
+      });
+
+      const mailOptions = {
+          from:'srjdev019@gmail.com',
           to: email,
           subject: "Sending Email With React And Nodejs",
           html: `
@@ -911,7 +917,12 @@ app.post('/add-job-post', authenticateComapany,upload.single('image'), async (re
 
   try {
     const newJobPost = new JobPost({
-    
+      company: currentCompany._id,
+      CompanyImage:{
+        data:currentCompany.image.data,
+        contentType:currentCompany.image.contentType
+      },
+      companyName: currentCompany.companyName,
       title,
       description,
       salary,
@@ -941,6 +952,17 @@ app.get('/job-posts', authenticateComapany,async (req, res) => {
     res.status(500).json({ error: 'Error retrieving posts' });
   }
 });
+
+app.get('/all-jobs', authenticate,async (req, res) => {
+  try {
+    const jobs = await JobPost.find();
+    res.json(jobs);
+  } catch (error) {
+    console.error('Error fetching communities:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 
 
 

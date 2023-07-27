@@ -25,6 +25,7 @@ import ContinueAsOption from './Components/ContinueAsOption/ContinueAsOption';
 import CompanySignUp from './Components/SignUp/CompanySignUp';
 import CompanyLogin from './Components/Login/CompanyLogin'
 import CompanyDashBoard from './Pages/CompanyDashBoard';
+import JobPost from './Components/JobPost/JobPost';
 function App() {
   return (
     <Router>
@@ -48,6 +49,7 @@ function App() {
           <Route path="/search" element={<UserSearch />} />
           <Route path="news" element={<TechNews />} />
           <Route path="quote" element={<QuoteComponent/>} />
+          <Route path="jobs" element={<JobPost/>} />
 
 
           <Route path="navbar" element={<SmallNavbar/>} />
