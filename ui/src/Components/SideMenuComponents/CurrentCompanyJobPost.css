@@ -28,4 +28,61 @@
     font-size: 14px;
     margin: 0;
   }
+  .userInfo {
+    display: flex;
+    border: 1px solid white;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
   
+  }
+  .userInfo img{
+    height: 100px;
+    width: 100px;
+    border-radius: 10%;
+  }
+  .userInfo > .col {
+    padding: 0 10px;
+  }
+  .applicant{
+    padding: 15px;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .userInfo {
+      flex-direction: column;
+    }
+  
+    .userInfo > .col {
+      padding: 5px;
+    }
+  }
+  @media (max-width: 767px) {
+  .userInfo {
+    flex-direction: column;
+  }
+
+  .userInfo > .col {
+    padding: 5px;
+  }
+
+  .applicant img {
+    max-width: 100px;
+  }
+
+  .applicant h3 {
+    font-size: 16px;
+  }
+}
+
+/* On even smaller screens, reduce the size of the applicant image and name */
+@media (max-width: 575px) {
+  .applicant img {
+    max-width: 80px;
+  }
+
+  .applicant h3 {
+    font-size: 14px;
+  }
+}

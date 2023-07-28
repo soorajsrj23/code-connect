@@ -1,0 +1,70 @@
+/* AppliedJobs.css */
+.ParentAppliedJob{
+  height: 100vh;
+}
+.page-title {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size: 28px;
+  }
+  
+  .applied-jobs-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+   
+  }
+  
+  .applied-job {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 2px solid #2faaec;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color:  #1c1a21;
+   
+  }
+  
+  .company-info {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    flex-direction: row;
+  }
+  
+  .company-info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 10%;
+    margin-right: 10px;
+    box-shadow: 0 0 0 2px #2faaec; 
+  }
+  
+  .company-info h3 {
+    font-size: 20px;
+    margin: 0;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .job-details h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #2faaec;
+  }
+  
+  .job-details p {
+    margin: 0;
+    margin-bottom: 5px;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 767px) {
+    .applied-job {
+      flex-basis: 100%;
+    }
+  }
+  

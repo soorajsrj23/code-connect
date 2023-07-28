@@ -502,7 +502,7 @@ app.post('/signup', upload.single('image'), async (req, res) => {
     try {
 
       const transporter = nodemailer.createTransport({
-       
+          
           to: email,
           subject: "Sending Email With React And Nodejs",
           html: `
@@ -933,15 +933,21 @@ app.post('/add-job-post', authenticateComapany,upload.single('image'), async (re
   }
 });
 
-app.get('/job-posts', authenticateComapany,async (req, res) => {
+app.get('/job-posts', authenticateComapany, async (req, res) => {
   try {
-    const jobPosts = await JobPost.find().sort({ createdAt: -1 }).populate( 'companyName');
+    const currentCompanyName = req.company.companyName; // Assuming the company name is stored in the "companyName" property of the authenticated user.
+
+    const jobPosts = await JobPost.find({ companyName: currentCompanyName })
+      .sort({ createdAt: -1 })
+      .populate('companyName');
+
     res.status(200).json(jobPosts);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error retrieving posts' });
   }
 });
+
 
 app.get('/all-jobs',async (req, res) => {
   try {
@@ -992,6 +998,49 @@ app.post('/selected-job', authenticate, async (req, res) => {
     res.status(500).json({ error: 'Error while applying' });
   }
 });
+app.get('/users/:developerId', async (req, res) => {
+  try {
+    const developerId = req.params.developerId;
+
+    // Fetch the user details from the database using the provided developerId
+    const user = await User.findOne({ _id: developerId });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Send the user details in the response
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+
+app.get('/get-applied-job-by-developer',authenticate, async (req, res) => {
+  try {
+    const developerId = req.user.name;
+
+    const jobPosts = await JobPost.find({ 'applicantId.developerName': developerId }).sort({ createdAt: -1 });
+
+    if (!jobPosts) {
+      return res.status(404).json({ error: 'No Jobs found' });
+    }
+
+    // Send the user details in the response
+    res.status(200).json(jobPosts);
+    console.log(jobPosts)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+
+
 
 
 

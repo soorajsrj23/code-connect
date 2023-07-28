@@ -15,7 +15,7 @@ import UserSearch from './Components/Search/UserSearch';
 
 import CommunityListComponent from './Components/Community/CommunityListComponent';
 import TechNews from './Components/News/TechNews'
-import Chat from './Components/Community/Chat'
+import Chat from './Components/Chat/Chat'
 import QuoteComponent from './Components/Quotes/QuoteComponent'
 
 
@@ -26,6 +26,7 @@ import CompanySignUp from './Components/SignUp/CompanySignUp';
 import CompanyLogin from './Components/Login/CompanyLogin'
 import CompanyDashBoard from './Pages/CompanyDashBoard';
 import JobPost from './Components/JobPost/JobPost';
+import AppliedJobs from './Components/AppliedJobs/AppliedJobs';
 function App() {
   return (
     <Router>
@@ -50,6 +51,7 @@ function App() {
           <Route path="news" element={<TechNews />} />
           <Route path="quote" element={<QuoteComponent/>} />
           <Route path="jobs" element={<JobPost/>} />
+          <Route path="applied-jobs" element={<AppliedJobs/>} />
 
 
           <Route path="navbar" element={<SmallNavbar/>} />

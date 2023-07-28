@@ -72,6 +72,14 @@ const UserNavbar = () => {
               </div>
             </NavLink>
           </NavItem>
+          <NavItem>
+            <NavLink href="/applied-jobs">
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <i className="bi bi-bookmark-check-fill" style={{ ...iconStyles, fontSize: '18px' }}></i>
+                <p className="desktop-text" style={textStyles}> Applied Jobs</p>
+              </div>
+            </NavLink>
+          </NavItem>
         </Nav>
       </Navbar>
     </div>
