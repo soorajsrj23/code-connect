@@ -1,7 +1,7 @@
 // components/UserProfile.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import './UserProfile.css'
 const UserProfile = ({ name }) => {
   const [user, setUser] = useState(null);
 
@@ -23,12 +23,14 @@ const UserProfile = ({ name }) => {
   }
 
   return (
-    <div>
-      <h2>{user.name}</h2>
-      <img src={user.profileImageURL} alt="Profile" />
-      <p>Email: {user.email}</p>
-      <p>Phone: {user.phone}</p>
-      <p>Bio: {user.bio}</p>
+    <div className="user-profile">
+      <img src={user.profileImageURL} alt="Profile" className="profile-image" />
+      <div className="user-info">
+        <h2 className="user-name">{user.name}</h2>
+        <p className="user-email">{user.email}</p>
+        <p className="user-phone">{user.phone}</p>
+        <p className="user-bio">{user.bio}</p>
+      </div>
     </div>
   );
 };

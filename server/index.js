@@ -502,7 +502,15 @@ app.post('/signup', upload.single('image'), async (req, res) => {
     try {
 
       const transporter = nodemailer.createTransport({
-          
+          service: "gmail",
+          auth: {
+              user: 'srjdev019@gmail.com',
+              pass: 'zknimqgpdlgidycz'
+          }
+      });
+
+      const mailOptions = {
+          from:'srjdev019@gmail.com',
           to: email,
           subject: "Sending Email With React And Nodejs",
           html: `
@@ -558,7 +566,7 @@ app.post('/signup', upload.single('image'), async (req, res) => {
       const saltRounds = 10;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
   
-      // Create a new user
+      // Create a new company
       const newCompany = new Company({
         companyName,
         email,
@@ -913,8 +921,9 @@ app.post('/add-job-post', authenticateComapany,upload.single('image'), async (re
       CompanyImage:{
         data:currentCompany.image.data,
         contentType:currentCompany.image.contentType
-      },
+                   },
       companyName: currentCompany.companyName,
+      companyPhone: currentCompany.phone,
       title,
       description,
       salary,
@@ -923,13 +932,14 @@ app.post('/add-job-post', authenticateComapany,upload.single('image'), async (re
       skills, 
     });
 
+
     await newJobPost.save();
 
     res.status(200).json({ message: 'Post created successfully' });
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     console.log("current company"+currentCompany)
-    res.status(500).json({ error: 'Error creating post' ,currentCompany});
+    res.status(500).json({ error: 'Error creating post'});
   }
 });
 

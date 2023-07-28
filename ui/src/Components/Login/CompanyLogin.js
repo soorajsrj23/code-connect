@@ -42,7 +42,7 @@ const Login = () => {
       <Col md="6" className="mx-auto">
         <div className="signup-form p-4">
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <i className="bi bi-person" style={{ fontSize: '74px', width: '60px', height: '60px', color: 'grey' }}></i>
+        <i className="bi bi-buildings" style={{ fontSize: '74px', width: '60px', height: '60px', color: 'grey' }}></i>
         </div>
           <h2 className='Login_head'>Log In</h2>
           

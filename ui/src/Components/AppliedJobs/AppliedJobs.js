@@ -34,7 +34,7 @@ function AppliedJobs() {
       <h1 className="page-title">Applied Jobs</h1>
       <Row className="applied-jobs-container">
         {AppliedJobPosts.map((job) => (
-          <Col key={job._id} xs="12" sm="6" lg="5" md="6" className="applied-job">
+          <Col key={job._id} xs="12" sm="6" lg="8" md="6" className="applied-job">
             <div className="company-info">
             <img
                     src={`data:${job.CompanyImage.contentType};base64,${job.CompanyImage.data}`}
@@ -44,9 +44,23 @@ function AppliedJobs() {
               <h3>{job.companyName}</h3>
             </div>
             <div className="job-details">
-              <h4>{job.title}</h4>
-              <p>Salary: {job.salary}</p>
-              <p>Location: {job.location}</p>
+            <div className='group'>
+            <i class="bi bi-briefcase-fill"></i>
+            <h4>{job.title}</h4>
+            </div>
+            <div className='group'>
+            <i class="bi bi-clock-fill"></i>
+            <p className="duration">{job.duration}</p>
+            </div>
+            <div className='group'>
+            <i class="bi bi-wallet2"></i>
+            <p className="salary">{job.salary}</p>
+            </div>
+            <div className='group'>
+            <i class="bi bi-info-square-fill"></i>
+            <p className='duty'>Description</p>
+            <p className="job-description">{job.description}</p>
+            </div>
               <p>Date Applied: {new Date(job.createdAt).toLocaleDateString()}</p>
             </div>
           </Col>

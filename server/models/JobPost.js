@@ -2,11 +2,7 @@ const mongoose = require('mongoose');
 
 const jobPostSchema = new mongoose.Schema({
     companyName: String,
-    email: {
-      type:String,
-  },
     phone:String,
-    Industry:String,
     CompanyImage: {
       data: String,
       contentType: String,
@@ -21,7 +17,7 @@ const jobPostSchema = new mongoose.Schema({
       {
         developerId: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'User',
+          ref: 'User'
         },
         developerName:{
           type:String
