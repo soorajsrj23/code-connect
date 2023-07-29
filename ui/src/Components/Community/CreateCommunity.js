@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './CreateCommunity.css'
 import axios from 'axios';
-import { Container, Row, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Container, Form, FormGroup, Label, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import SmallNavbar from '../Navbar/SmallNavbar';
 

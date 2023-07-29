@@ -44,11 +44,11 @@
     box-shadow: 0 0 0 2px #2faaec; 
   }
   
-  .company-info h3 {
+  .company-info .company_Name {
     font-size: 20px;
-    margin: 0;
     align-items: center;
     display: flex;
+   padding-top: 15px;
     justify-content: center;
   }
   
@@ -93,32 +93,33 @@ flex-direction: row;
   font-size: 14px;
   font-weight: 500;
   display: inline-block;
-  
+  align-items: center;
+  justify-content: center;
 }
 .applicant-status p {
   font-weight: 500;
   font-size: 15px;
-  padding: 4px;
-
+  padding: 4px 4px;
 }
 
 /* Styles for different job statuses */
 .applicant-status.new {
-  background-color: rgb(4, 151, 48);
-  color: white;
+  background-color: rgba(33, 232, 76, 0.76);
+  color: rgb(25, 21, 21);
+  padding: 4px 4px;
 }
 
 .applicant-status.shortlisted {
   background-color: rgb(255, 243, 22);
-  color: white;
+  color: rgb(30, 30, 30);
 }
 
 .applicant-status.interview-scheduled {
   background-color: rgb(0, 255, 187);
-  color: white;
+  color: black;
 }
 
 .applicant-status.rejected {
-  background-color: rgb(255, 0, 0);
-  color: black;
+  background-color: rgb(246, 67, 67);
+  color: rgb(255, 255, 255);
 }

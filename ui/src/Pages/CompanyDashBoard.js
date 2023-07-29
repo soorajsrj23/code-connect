@@ -1,5 +1,4 @@
 import React from 'react'
-import { Container } from 'reactstrap'
 import CompanyNavBar from '../Components/Navbar/CompanyNavBar'
 import SideMenu from '../SideMenu/SideMenu'
 import ParentComponent from '../Components/Profile/ParentCompanyProfile'
@@ -9,9 +8,7 @@ function CompanyDashBoard() {
         <CompanyNavBar/>
         <ParentComponent/>
         <SideMenu/>
-      
-
-
+    
     </div>
   )
 }

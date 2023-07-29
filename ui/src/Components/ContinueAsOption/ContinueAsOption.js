@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Button } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import './ContinueAsOption.css'; // Import the custom CSS file for styling
 import { useNavigate } from 'react-router-dom';
 
@@ -10,13 +10,17 @@ const UserType = () => {
     history('/signup')
    }
    const MoveToCompanySignUp=()=>{
-    history('/signup')
+    history('/company-signup')
    }
 
 
   return (
     <Container className="user-type-container" fluid>
-         <h2>Continue As...</h2>
+      
+      <Row className="justify-content-center align-items-center">
+      <h1 className='code-connect'>Code Connect</h1>
+         <h2 className='continue-as-text'>Continue As...</h2>
+         </Row>
       <Row className="justify-content-center align-items-center">
        
         <Col xs="auto">

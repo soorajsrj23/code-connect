@@ -171,7 +171,8 @@ const CommunityListComponent = () => {
           
           src={`data:${community.icon.contentType};base64,${btoa(
             new Uint8Array(community.icon.data.data).reduce((data, byte) => data + String.fromCharCode(byte), '')
-          )}`}/>
+          
+          )}`}  alt=""/>
           
                 </div>
                 <div className="community-info">
@@ -251,7 +252,7 @@ const CommunityListComponent = () => {
       {isImageZoomed && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <img src={zoomedImageSrc} alt="Zoomed Image" className="zoomed-image" />
+            <img src={zoomedImageSrc} alt="Zoomed " className="zoomed-image" />
             <button className="modal-close" onClick={closeZoomedImage}>
               &times;
             </button>

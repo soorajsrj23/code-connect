@@ -1,51 +1,79 @@
+/* ContinueAsOption.css */
 
-/* UserType.css */
-/* UserType.css */
-.user-type-container {
-    height: 100vh; /* Set the container height to full viewport height */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .company {
-    padding: 15px 25px;
-    margin: 15px; /* Add space between buttons */
-    background-color: #3a3a3a; /* Red color for Company button */
-    border: 6px solid #3a3a3a; /* Company button border color */
-    color: #fff;
-    font-size: 24px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s, border-color 0.2s; /* Add border color to transition on hover */
-  }
-  
-  .developer {
-    padding: 15px 25px;
-    margin: 15px; /* Add space between buttons */
-    background-color: #3a3a3a; /* Red color for Company button */
-    border: 6px solid #3a3a3a; /* Developer button border color */
-    color: #fff;
-    font-size: 24px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s, border-color 0.2s; /* Add border color to transition on hover */
-  }
-  
-  .company:hover,
-  .developer:hover {
-    
-    border-color: #0ceb0c92; /* Darker border color on hover */
-  }
-  
-  
-.titleOfCompany{
-    font-family: 'Roboto', sans-serif;
-  font-weight: 300; /* Thin font weight */
-  font-size: 30px;
+/* Add your existing styles here */
+
+/* Typing text effect */
+.typing-text {
+  display: inline-block;
+  overflow: hidden;
+  animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
 }
-.titleOfDeveloper{
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300; 
-    font-size: 30px;
+
+
+
+/* Futuristic design */
+.user-type-container {
+  background-color: #1a1a1a;
+  color: #fff;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  min-height: 100vh;
+  height: 600px;
+}
+
+.continue-as-text {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.code-connect{
+  font-size: 80px;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, Arial, sans-serif;
+   margin-top: 40px;
+   margin-bottom: 80px;
+
+}
+
+.titleOfDeveloper,
+.titleOfCompany {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  padding: 20px;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.titleOfDeveloper:hover,
+.titleOfCompany:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
+
+.developer,
+.company {
+  margin: 10px;
+  background: linear-gradient(to right, #1a1a1a, #2d2d2d);
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #fff; /* Set text color to white */
+}
+
+.company {
+  background: linear-gradient(to right, #1a1a1a, #2d2d2d);
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+  color: #fff; /* Set text color to white */
+}
+
+
+
+.developer:hover,
+.company:hover {
+  transform: translateY(-5px);
 }

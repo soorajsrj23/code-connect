@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, Input, Button } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle} from 'reactstrap';
 import './ViewPosts.css'
 import SmallNavBar from '../Navbar/SmallNavbar'
 const ViewPosts = () => {

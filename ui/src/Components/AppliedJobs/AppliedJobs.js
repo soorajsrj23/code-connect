@@ -48,7 +48,8 @@ function AppliedJobs() {
                     alt={`Logo for ${job.companyName}`}
                     className="company-icon"
                   />
-              <h3>{job.companyName}</h3>
+              <h3 className='company_Name'>{job.companyName}</h3>
+              
             </div>
             <div className="job-details">
             <div className='group'>
@@ -73,9 +74,9 @@ function AppliedJobs() {
   {job.applicantId.map((applicantInfo) => (
     <div key={applicantInfo._id}>
    <p> Applied {getDaysDifference(applicantInfo.appliedAt)} days ago</p> 
+   <br/>
      <div className={`applicant-status ${applicantInfo.jobStatus.toLowerCase()}`}>
-      <br/>
-      {applicantInfo.jobStatus === 'New' ? 'Applied' : <p>{applicantInfo.jobStatus}</p>}
+      {applicantInfo.jobStatus === 'New' ? ' Applied ' : <p>{applicantInfo.jobStatus}</p>}
 </div>
 
     </div>

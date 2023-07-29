@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Row } from 'reactstrap';
+import {  Col, Container, Row } from 'reactstrap';
 import './CurrentCompanyJobPost.css';
 
 function CurrentCompanyJobPost() {
