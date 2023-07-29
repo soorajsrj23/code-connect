@@ -27,6 +27,13 @@ function AppliedJobs() {
       console.error(error);
     }
   };
+  const getDaysDifference = (appliedAt) => {
+    const appliedDate = new Date(appliedAt);
+    const currentDate = new Date();
+    const differenceInTime = currentDate.getTime() - appliedDate.getTime();
+    const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+    return differenceInDays;
+  };
 
   return (
     <Container fluid className='ParentAppliedJob'>
@@ -50,18 +57,34 @@ function AppliedJobs() {
             </div>
             <div className='group'>
             <i class="bi bi-clock-fill"></i>
-            <p className="duration">{job.duration}</p>
+            <p className="duration">{job.employmentType}</p>
             </div>
             <div className='group'>
             <i class="bi bi-wallet2"></i>
             <p className="salary">{job.salary}</p>
             </div>
-            <div className='group'>
-            <i class="bi bi-info-square-fill"></i>
-            <p className='duty'>Description</p>
-            <p className="job-description">{job.description}</p>
+            <br/>
+            <div>
+            <h5 className='duty'>Description</h5>
+            <p>{job.description}</p>
             </div>
-              <p>Date Applied: {new Date(job.createdAt).toLocaleDateString()}</p>
+              <p>created at : {new Date(job.createdAt).toLocaleDateString()}</p>
+              <div>
+  {job.applicantId.map((applicantInfo) => (
+    <div key={applicantInfo._id}>
+   <p> Applied {getDaysDifference(applicantInfo.appliedAt)} days ago</p> 
+     <div className={`applicant-status ${applicantInfo.jobStatus.toLowerCase()}`}>
+      <br/>
+      {applicantInfo.jobStatus === 'New' ? 'Applied' : <p>{applicantInfo.jobStatus}</p>}
+</div>
+
+    </div>
+  ))}
+</div>
+<div>
+  <p>{}</p>
+</div>
+             
             </div>
           </Col>
         ))}

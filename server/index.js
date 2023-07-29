@@ -912,7 +912,7 @@ app.post('/api/search', async (req, res) => {
 
 
 app.post('/add-job-post', authenticateComapany,upload.single('image'), async (req, res) => {
-  const { title,description,salary,qualifications,location,skills } = req.body;
+  const { title,description,salary,qualifications,location,skills,experience,employmentType } = req.body;
   const currentCompany = req.company;
 
   try {
@@ -930,6 +930,8 @@ app.post('/add-job-post', authenticateComapany,upload.single('image'), async (re
       qualifications,
       location,
       skills, 
+      experience,
+      employmentType
     });
 
 
@@ -1048,7 +1050,28 @@ app.get('/get-applied-job-by-developer',authenticate, async (req, res) => {
   }
 });
 
+app.put('/update-job-status/:applicantId', async (req, res) => {
+  const { applicantId } = req.params;
+  const { status, title,description } = req.body;
 
+  try {
+    // Find the job with the applicantId and update the jobStatus field for that applicant
+    const updatedJob = await JobPost.findOneAndUpdate(
+      { 'applicantId.developerId': applicantId, title,description }, // Check for both applicantId and title
+      { $set: { 'applicantId.$.jobStatus': status } },
+      { new: true } // Return the updated job document
+    );
+
+    if (!updatedJob) {
+      return res.status(404).json({ error: 'Job or applicant not found, or title does not match.' });
+    }
+
+    return res.json(updatedJob);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error.' });
+  }
+});
 
 
 

@@ -1,88 +1,152 @@
+/* CurrentCompanyJobPost.css */
+
 .job-post {
-    border: 1px solid #e1e1e1;
-    border-radius: 5px;
-    padding: 16px;
-    margin-bottom: 20px;
-    background-color: #1e1616;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    color: #e1e1e1;
-  }
-  
-  .job-title {
-    font-size: 24px;
-    margin-bottom: 8px;
-  }
-  
-  .job-description {
-    font-size: 16px;
-    margin-bottom: 12px;
-  }
-  
-  .job-details {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 8px;
-  }
-  
-  .job-details p {
-    font-size: 14px;
-    margin: 0;
-  }
-  .userInfo {
-    display: flex;
-    border: 1px solid white;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-  
-  }
-  .userInfo img{
-    height: 100px;
-    width: 100px;
-    border-radius: 10%;
-  }
-  .userInfo > .col {
-    padding: 0 10px;
-  }
-  .applicant{
-    padding: 15px;
-  }
-  
-  /* Responsive styles */
-  @media (max-width: 768px) {
-    .userInfo {
-      flex-direction: column;
-    }
-  
-    .userInfo > .col {
-      padding: 5px;
-    }
-  }
-  @media (max-width: 767px) {
-  .userInfo {
-    flex-direction: column;
-  }
-
-  .userInfo > .col {
-    padding: 5px;
-  }
-
-  .applicant img {
-    max-width: 100px;
-  }
-
-  .applicant h3 {
-    font-size: 16px;
-  }
+  border: 3px solid #0077b5;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* On even smaller screens, reduce the size of the applicant image and name */
-@media (max-width: 575px) {
-  .applicant img {
-    max-width: 80px;
-  }
+.job-section-title {
+  font-size: 24px;
+  color: #d6cbcb;
+  border-bottom: 2px solid #0077b5;
+  padding-bottom: 10px;
+}
 
-  .applicant h3 {
-    font-size: 14px;
-  }
+.job-title {
+  font-size: 20px;
+  margin-top: 10px;
+  color: #08a0f2;
+}
+
+.job-description {
+  font-size: 16px;
+  color: #333;
+
+}
+.job-info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ 
+}
+.job-info i{
+  padding-right: 10px;
+  font-size: 50px;
+  color: #08a0f2;
+
+}
+
+.job-details {
+  margin-top: 1px;
+}
+
+.detail-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.detail-label::after {
+  content: ':';
+}
+
+.detail-value {
+  font-size: 16px;
+  color: #333;
+  margin-left: 5px;
+}
+
+.applicant_info {
+  margin-top: 30px;
+}
+
+.applicant h1 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.userInfo {
+  margin-top: 15px;
+  align-items: center;
+  border: 1px solid  #08a0f2;
+  border-radius: 10px;
+  margin-left: 20px;
+}
+
+.Applicant-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(80, 195, 215, 0.1);
+
+  border: 2px solid #0077b5;
+}
+
+h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.user-bio {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.contact-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.contact-label::after {
+  content: ':';
+}
+
+.contact-info {
+  font-size: 16px;
+  color: #333;
+  margin-left: 5px;
+}
+
+.custom-select-wrapper {
+ 
+  display: inline-block;
+}
+.custom-select-wrapper button{
+  align-items: center;
+  justify-content: center;
+}
+
+select {
+  /* Remove default arrow icon in Chrome and Safari */
+ 
+  background-color: #35abf4; /* Dark background color */
+  color: #fff; /* Text color */
+  padding: 8px 30px 8px 10px; /* Padding to create some space around the text */
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Custom arrow icon */
+select::after {
+  content: '\25BC'; /* Unicode character for down arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #fff; /* Arrow color */
+  pointer-events: none;
+}
+
+/* On hover/focus styles */
+select:hover,
+select:focus {
+  background-color: #444; /* Darker background color on hover/focus */
 }

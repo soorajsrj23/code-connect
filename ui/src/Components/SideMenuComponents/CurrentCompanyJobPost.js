@@ -5,6 +5,12 @@ import './CurrentCompanyJobPost.css';
 function CurrentCompanyJobPost() {
   const [jobPosts, setJobPosts] = useState([]);
   const [userDetailsMap, setUserDetailsMap] = useState({});
+  const [selectedStatus, setSelectedStatus] = useState('New'); // Set the default status to "New"
+ 
+  const handleStatusChange = (e) => {
+    setSelectedStatus(e.target.value);
+  };
+ 
 
   useEffect(() => {
     fetchJobPosts();
@@ -56,17 +62,70 @@ function CurrentCompanyJobPost() {
     fetchUserDetailsForApplicants();
   }, [jobPosts]);
 
+  const getDaysDifference = (appliedAt) => {
+    const appliedDate = new Date(appliedAt);
+    const currentDate = new Date();
+    const differenceInTime = currentDate.getTime() - appliedDate.getTime();
+    const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+    return differenceInDays;
+  };
+
+  const updateJobStatus = async (applicantId,selectedTitle,desc) => {
+    const description=desc;
+    try {
+      const response = await fetch(`http://localhost:4000/update-job-status/${applicantId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('token'),
+        },
+        body: JSON.stringify({ status: selectedStatus, title: selectedTitle,description:description }), // Send both status and title
+      });
+      const data = await response.json();
+      console.log(data); // You can log the response for debugging or feedback purposes
+      // Refresh the job posts after updating status
+      fetchJobPosts();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
   return (
     <Container fluid>
       {jobPosts.map((job) => (
         <div key={job._id} className="job-post">
-          <h2 className="job-title">{job.title}</h2>
-          <p className="job-description">{job.description}</p>
+          <h2 className="job-section-title">Job Details</h2>
+          <div className='job-info'>
+            <i class="bi bi-person-badge-fill"></i>
+          <h4 className="job-title">{job.title}</h4>
+          </div>
           <div className="job-details">
-            <p>Salary: {job.salary}</p>
-            <p>Qualifications: {job.qualifications}</p>
-            <p>Location: {job.location}</p>
-            <p>Skills: {job.skills}</p>
+            <p>
+              <span className="detail-label">Salary:</span> {job.salary}
+            </p>
+            <p>
+              <span className="detail-label">Qualifications:</span> {job.qualifications}
+            </p>
+            <p>
+              <span className="detail-label">Location:</span> {job.location}
+            </p>
+            <p>
+              <span className="detail-label">Experience:</span> {job.experience}
+            </p>
+            <p>
+              <span className="detail-label">Employment Type:</span> {job.employmentType}
+            </p>
+            <p>
+              <span className="detail-label">Skills:</span> {job.skills}
+            </p>
+            <p>
+              <span className="detail-label">Description:</span> {job.description}
+            </p>
+            <p>
+              <span className="detail-label">Posted At</span> {new Date(job.createdAt).toLocaleDateString()}
+            </p>
           </div>
           <div className="applicant_info">
             <h1>Applicants</h1>
@@ -85,19 +144,52 @@ function CurrentCompanyJobPost() {
                             )
                           )}`}
                           alt="Applicant"
+                          className="Applicant-image"
                         />
                       )}
                     </Col>
                     <Col sm="8">
-                      <h3>Name: {userDetails.name}</h3>
-                      <p>Bio: {userDetails.bio}</p>
-                      <p>Phone: {userDetails.phone}</p>
-                      <p>Email: {userDetails.email}</p>
+                      <h3>{userDetails.name}</h3>
+                      <p className="user-bio">{userDetails.bio}</p>
+                      <p>
+                        <span className="contact-label">Phone:</span> {userDetails.phone}
+                      </p>
+                      <p>
+                        <span className="contact-label">Email:</span> {userDetails.email}
+                      </p>
                     </Col>
+                    
                   </Row>
                 </div>
               );
             })}
+          </div>
+
+          <div>
+
+          {job.applicantId.map((applicantInfo) => (
+    <div key={applicantInfo._id}>
+     Applied {getDaysDifference(applicantInfo.appliedAt)} days ago
+     <p>Status:{applicantInfo.jobStatus}</p>
+
+     <div>
+      <label htmlFor="status">Set Status:</label>
+      <div className="custom-select-wrapper">
+                      <select id="status" value={selectedStatus} onChange={handleStatusChange}>
+                        <option value="New">New</option>
+                        <option value="Shortlisted">Shortlisted</option>
+                        <option value="Interview-Scheduled">Interview Scheduled</option>
+                        <option value="Rejected">Rejected</option>
+                      </select>
+                    </div>
+      <button  type="button" class="btn btn-outline-secondary btn-md" onClick={() => {   updateJobStatus(applicantInfo.developerId,job.title,job.description); }} > Set Status </button>
+    </div>
+
+
+    </div>
+  ))}
+
+            
           </div>
         </div>
       ))}

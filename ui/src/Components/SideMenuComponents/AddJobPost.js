@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './AddJobPost.css'
 import axios from 'axios';
+
 const SimpleForm = () => {
   const [formData, setFormData] = useState({
     title: '',
@@ -9,6 +10,8 @@ const SimpleForm = () => {
     qualifications: '',
     location: '',
     skills: '',
+    employmentType: '',
+    experience: '',
   });
 
   const handleChange = (e) => {
@@ -28,7 +31,7 @@ const SimpleForm = () => {
         headers: {
           Authorization: localStorage.getItem('token'), // Send the JWT token for authentication
         },
-      })
+      });
       console.log(response.data);
 
     } catch (error) {
@@ -103,6 +106,28 @@ const SimpleForm = () => {
             type="text"
             name="skills"
             value={formData.skills}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+
+        <label>
+          Employment Type:
+          <input
+            type="text"
+            name="employmentType"
+            value={formData.employmentType}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+
+        <label>
+          Experience:
+          <input
+            type="text"
+            name="experience"
+            value={formData.experience}
             onChange={handleChange}
           />
         </label>

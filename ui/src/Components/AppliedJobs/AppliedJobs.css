@@ -85,3 +85,40 @@ flex-direction: row;
   color: #cdcbcb;
 
 }
+/* CurrentCompanyJobPost.css */
+
+/* CSS classes for different job statuses */
+.applicant-status {
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-block;
+  
+}
+.applicant-status p {
+  font-weight: 500;
+  font-size: 15px;
+  padding: 4px;
+
+}
+
+/* Styles for different job statuses */
+.applicant-status.new {
+  background-color: rgb(4, 151, 48);
+  color: white;
+}
+
+.applicant-status.shortlisted {
+  background-color: rgb(255, 243, 22);
+  color: white;
+}
+
+.applicant-status.interview-scheduled {
+  background-color: rgb(0, 255, 187);
+  color: white;
+}
+
+.applicant-status.rejected {
+  background-color: rgb(255, 0, 0);
+  color: black;
+}
