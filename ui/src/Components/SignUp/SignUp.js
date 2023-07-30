@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, FormGroup, Label, Button } from 'reactstrap';
-import '../Styles/SignUp.css'
+
+import './SignUp.css'
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
   const [name, setName] = useState('');
@@ -39,15 +41,16 @@ const SignUp = () => {
           setBio('');
           setPhone();
           // Navigate to the next page
-      //    toast.success('User registered successfully');
+          toast.success('User registered successfully');
+      
           navigate('/login');
         })
         .catch((error) => {
           console.error(error);
-        //  toast.error('An error occurred during registration');
+          toast.error(error.message);
         });
     } else {
-   //   toast.error('Please fill in all the fields');
+    toast.error('Please fill in all the fields');
     }
   };
 

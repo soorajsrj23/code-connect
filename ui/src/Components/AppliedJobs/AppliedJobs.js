@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import './AppliedJobs.css';
 import axios from 'axios';
 import SmallNavbar from '../Navbar/SmallNavbar'
+import TimeLine from './TimeLine';
 
 function AppliedJobs() {
   const [AppliedJobPosts, setAppliedJobPosts] = useState([]);
@@ -73,8 +74,10 @@ function AppliedJobs() {
               <div>
   {job.applicantId.map((applicantInfo) => (
     <div key={applicantInfo._id}>
+      <div className='start_point'>
    <p> Applied {getDaysDifference(applicantInfo.appliedAt)} days ago</p> 
-   <br/>
+   </div>
+   <TimeLine applicantInfo={job.applicantId} />
      <div className={`applicant-status ${applicantInfo.jobStatus.toLowerCase()}`}>
       {applicantInfo.jobStatus === 'New' ? ' Applied ' : <p>{applicantInfo.jobStatus}</p>}
 </div>

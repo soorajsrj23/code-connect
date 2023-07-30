@@ -4,6 +4,7 @@ import './Profile.css';
 import { Container, Row, Col } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 
+
 const Profile = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();

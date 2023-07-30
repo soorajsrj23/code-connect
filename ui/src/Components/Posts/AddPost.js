@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './AddPost.css';
 import SmallNavbar from '../Navbar/SmallNavbar';
+import { toast } from 'react-toastify';
 
 const AddPost = () => {
   const [caption, setCaption] = useState('');
@@ -41,9 +42,11 @@ const AddPost = () => {
       // Clear the form inputs after submission
       setCaption('');
       setImage(null);
+      toast.info("post added successfully")
       history('/view-post')
     } catch (error) {
       console.error(error);
+      toast.error(error.message);
     }
   };
 

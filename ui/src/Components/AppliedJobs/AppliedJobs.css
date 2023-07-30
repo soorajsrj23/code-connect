@@ -106,7 +106,11 @@ flex-direction: row;
 .applicant-status.new {
   background-color: rgba(33, 232, 76, 0.76);
   color: rgb(25, 21, 21);
-  padding: 4px 4px;
+  padding-left: 40px;
+  padding-right: 40px;
+  font-size: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .applicant-status.shortlisted {
@@ -122,4 +126,12 @@ flex-direction: row;
 .applicant-status.rejected {
   background-color: rgb(246, 67, 67);
   color: rgb(255, 255, 255);
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.start_point p{
+  border: 1px solid #157da7;
+  border-radius: 5px;
+  width: max-content;
+  padding: 5px;
 }

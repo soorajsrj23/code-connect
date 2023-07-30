@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 //import { toast } from 'react-toastify';
 import { Container, Row, Col, FormGroup, Label, Button } from 'reactstrap';
 import '../Styles/Login.css'
+import { toast } from 'react-toastify';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,15 +23,15 @@ const Login = () => {
       localStorage.setItem('token', token);
 
       // Redirect to profile page
-  //    toast.success("Login Successfull");
+     toast.success("Login Successfull");
       navigate('/profile');
     } catch (error) {
       if (error.response && error.response.status === 401) {
         setError('Invalid email or password');
-    //    toast.error(error);
+       toast.error("verify email and password");
       } else {
         setError('An error occurred during login');
-      //  toast.error(error.message);
+        toast.error(error.message);
       }
     }
   };
@@ -50,17 +51,17 @@ const Login = () => {
           
             <Label for="email"className='inputsFieldName' >Email</Label>
             <br/>
-            <input type="email" id="email" className="darkInput" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="email" id="email" className="darkInput" required value={email} onChange={(e) => setEmail(e.target.value)} />
           </FormGroup>
           <FormGroup>
             <Label for="password"  className='inputsFieldName' >Password</Label>
             <br/>
-            <input type="password" id="password" className="darkInput" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input type="password" required id="password" className="darkInput" value={password} onChange={(e) => setPassword(e.target.value)} />
           </FormGroup>
           
           <center>
             <Button type="button" className="btn btn-dark" onClick={handleLogin}>Log In</Button>
-            <p className='error_part'>{error?<p>verify your email and password</p>:''} </p>
+            <p className='error_part'>{error?error:''} </p>
           </center>
         </div>
       </Col>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './JobPost.css';
 import SmallNavbar from '../Navbar/SmallNavbar';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 function JobPost() {
   const [jobPosts, setJobPosts] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null); // State to keep track of the selected job post
@@ -48,9 +49,16 @@ function JobPost() {
         }
       );
       console.log(response.data);
+      toast.info("Applied")
     } catch (error) {
-      console.error(error);
-      console.log(error.message);
+      if (error.response && error.response.status === 400) {
+       
+        const errorMessage = error.response.data.error;
+        console.log('Error:', errorMessage);
+        toast.error(errorMessage);
+      } else {
+        console.log('Error:', error.message);
+      }
     }
   };
   

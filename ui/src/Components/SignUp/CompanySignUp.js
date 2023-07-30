@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, FormGroup, Label, Button } from 'reactstrap';
 import './CompanySignUp.css'
+import { toast } from 'react-toastify';
 
 const CompanySignUp = () => {
   const [companyName, setCompanyName] = useState('');
@@ -39,24 +40,30 @@ const CompanySignUp = () => {
           setIndustry('');
           setPhone();
           // Navigate to the next page
-      //    toast.success('User registered successfully');
+         toast.success('Company registered successfully');
           navigate('/company-login');
         })
         .catch((error) => {
           console.error(error);
-        //  toast.error('An error occurred during registration');
+          toast.error('An error occurred during registration');
         });
     } else {
-   //   toast.error('Please fill in all the fields');
+     toast.error('Please fill in all the fields');
     }
   };
 
+const moveTOLogin=()=>{
+  navigate('/company-login');
+}
+
+
+
   return (
-    <div className="signup-container">
+    <div className="signup-container-company">
       <Container className="h-100">
         <Row className="h-100 justify-content-center align-items-center">
           <Col md="6" className="mx-auto">
-            <div className="signup-form p-4">
+            <div className="signup-form-company p-4">
               <div className="icon-wrapper">
                 {selectedFile ? (
                   <div className="selected-image-wrapper">
@@ -118,6 +125,7 @@ const CompanySignUp = () => {
                 <Button type="button" className="btn btn-dark" onClick={handleSignup}>
                   Sign Up
                 </Button>
+                <p>All Ready have ann Account <u onClick={()=>moveTOLogin} >login</u></p>
               </center>
             </div>
           </Col>
