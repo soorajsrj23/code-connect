@@ -97,7 +97,7 @@ const PostList = () => {
 
   return (
     <div className="post-list">
-      <h1>My Posts</h1>
+      <h1 className='my_posts'>My Posts</h1>
       <div className="post-list-scrollable">
         <Row className="post-list-grid">
           {posts.map((post) => (
@@ -175,7 +175,7 @@ const PostList = () => {
             <p>Liked by</p>
             {selectedLikes.map((like) => (
               <div  className='likeWithName' key={like._id}>
-                <p> {like.userName},</p> {/* Display the username of the user who liked the post */}
+                <p> {like.userName},</p> 
               </div>
             ))}
           </div>

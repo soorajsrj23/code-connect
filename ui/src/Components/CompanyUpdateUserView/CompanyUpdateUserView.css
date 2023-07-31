@@ -1,0 +1,58 @@
+/* ... Your existing CSS ... */
+
+/* New CSS for the wrapper and responsive card layout */
+.company-update-user-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: rgb(23, 21, 28);
+  color: white;
+
+}
+
+.company-update-user-container {
+  display: flex;
+  flex-direction: column; /* Change flex direction to column */
+  align-items: center; /* Center items horizontally */
+  background-color: rgb(18, 18, 18);
+  color: white;
+
+}
+
+.company-update-user-view {
+  width: 400px; /* Set the desired width of the card */
+  margin: 10px; /* Adjust margin between cards */
+  background: linear-gradient(#111,#090616);
+  color: white;
+  border: 2px solid #0b3677 !important;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .company-update-user-view {
+    width: 100%; /* Adjust card width for smaller screens */
+  }
+}
+
+.update-paragraph{
+  color: aliceblue;
+}
+.update-title{
+  color: aliceblue;
+}
+.company-update-body,.text-white{
+  color: aliceblue ;
+}
+.info-text{
+  display: inline-block;
+  align-items: center;
+ justify-content: center;
+}
+.info-text p{
+  display:inline-flex ;
+  
+}
+hr{
+  border: 1px solid  #0e4ba7 !important;
+}

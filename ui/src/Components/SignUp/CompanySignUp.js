@@ -125,7 +125,7 @@ const moveTOLogin=()=>{
                 <Button type="button" className="btn btn-dark" onClick={handleSignup}>
                   Sign Up
                 </Button>
-                <p>All Ready have ann Account <u onClick={()=>moveTOLogin} >login</u></p>
+                <p>All Ready have ann Account <u onClick={moveTOLogin} >login</u></p>
               </center>
             </div>
           </Col>

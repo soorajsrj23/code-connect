@@ -2,23 +2,17 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from './Components/SignUp/SignUp';
 import Login from './Pages/Login';
-
 import EditProfile from './Pages/EditProfile';
 import AddPost from './Components/Posts/AddPost';
-
 import ViewPosts from './Components/Posts/ViewPosts';
 import UserDashBoard from './Pages/UserDashBoard';
 import CreateCommunity from './Components/Community/CreateCommunity';
 import UserProvider from './Components/Context/UserContext';
-
 import UserSearch from './Components/Search/UserSearch';
-
 import CommunityListComponent from './Components/Community/CommunityListComponent';
 import TechNews from './Components/News/TechNews'
 import Chat from './Components/Chat/Chat'
 import QuoteComponent from './Components/Quotes/QuoteComponent'
-
-
 import './App.css'
 import SmallNavbar from './Components/Navbar/SmallNavbar';
 import ContinueAsOption from './Components/ContinueAsOption/ContinueAsOption';
@@ -27,6 +21,9 @@ import CompanyLogin from './Components/Login/CompanyLogin'
 import CompanyDashBoard from './Pages/CompanyDashBoard';
 import JobPost from './Components/JobPost/JobPost';
 import AppliedJobs from './Components/AppliedJobs/AppliedJobs';
+import CompanyUpdateUserView from './Components/CompanyUpdateUserView/CompanyUpdateUserView'
+
+
 function App() {
   return (
     <Router>
@@ -52,6 +49,7 @@ function App() {
           <Route path="quote" element={<QuoteComponent/>} />
           <Route path="jobs" element={<JobPost/>} />
           <Route path="applied-jobs" element={<AppliedJobs/>} />
+          <Route path="view-company-update" element={<CompanyUpdateUserView/>} />
 
 
           <Route path="navbar" element={<SmallNavbar/>} />

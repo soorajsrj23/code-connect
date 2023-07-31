@@ -51,25 +51,10 @@ const Profile = () => {
               <p className="profile-bio">{user.bio}</p>
               <p className="profile-bio">{user.email}</p>
               <p className="profile-bio">{user.phone}</p>
-              <p className="profile-bio">{user._id}</p>
             </div>
           </div>
         </Col>
         <Col xs={12} md={8} lg={12}>
-          <div className="profile-stats">
-            <div className="stats-item">
-              <h6>Posts</h6>
-              <p>12</p>
-            </div>
-            <div className="stats-item">
-              <h6>Followers</h6>
-              <p>13</p>
-            </div>
-            <div className="stats-item">
-              <h6>Following</h6>
-              <p>45</p>
-            </div>
-          </div>
           <button onClick={moveToEditProfile} className="edit-profile-button">
             Edit Profile
           </button>

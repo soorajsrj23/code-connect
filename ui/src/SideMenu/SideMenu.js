@@ -3,6 +3,8 @@ import { NavItem,NavLink,Nav } from 'reactstrap';
 import './SideMenu.css'
 import AddJobPost from '../Components/SideMenuComponents/AddJobPost';
 import CurrentCompanyJobPost from '../Components/SideMenuComponents/CurrentCompanyJobPost';
+import AddCompanyUpdates from '../Components/SideMenuComponents/AddCompanyUpdates'
+
 const SideMenu = () => {
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -17,7 +19,7 @@ const SideMenu = () => {
       case 'viewJobs':
         return <div><CurrentCompanyJobPost/></div>; // Replace with your View Posted Jobs component
       case 'recruiters':
-        return <div>Recruiters Component</div>; // Replace with your Recruiters component
+        return <div><AddCompanyUpdates/></div>; // Replace with your Recruiters component
       case 'checkMail':
         return <div>Check Mail Component</div>; // Replace with your Check Mail component
       default:
@@ -44,7 +46,7 @@ const SideMenu = () => {
                 </NavItem>
                 <NavItem>
                   <NavLink href="#" onClick={() => handleMenuItemClick('recruiters')} className="menu-item">
-                    Recruiters
+                    Add Company Update
                   </NavLink>
                 </NavItem>
                 <NavItem>

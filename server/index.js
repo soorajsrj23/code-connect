@@ -11,12 +11,11 @@ const port = 4000;
 app.use(express.json());
 
 
-
 const JobPost=require('../server/models/JobPost')
 const Post=require('../server/models/AddPost')
 const Company=require('../server/models/Company')
-
-
+const CompanyUpdate= require('../server/models/CompanyUpdate')
+const User=require('../server/models/User')
 // Connect to MongoDB
 const dbURI = "mongodb://localhost/codeConnect";
 
@@ -25,25 +24,6 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch((err) => console.log(err));
 
 // Create a user schema and model
-const userSchema = new mongoose.Schema({
-  name: String,
-  email: {
-    type:String,
-  unique:true},
-  password: String,
-  phone:String,
-  bio:String,
-  image: {
-    data: Buffer,
-    contentType: String
-  },
-  
-
-});
-const User = mongoose.model('User', userSchema);
-
-
-
 
 const http = require('http');
 const socketIO = require('socket.io');
@@ -381,16 +361,6 @@ app.post('/api/communityChats/:communityId', upload.single('image'), async (req,
     res.status(500).json({ error: 'Server error' });
   }
 });
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1073,7 +1043,41 @@ app.put('/update-job-status/:applicantId', async (req, res) => {
 });
 
 
+app.post('/add-company-updates',authenticateComapany ,upload.single('image'), async (req, res) => {
 
+  try {
+    const { title, content } = req.body;
+    const idOfPostedCompany= req.company._id;
+    const image = req.file ? `/uploads/${req.file.filename}` : null; // Store the image URL
+    const newUpdate = new CompanyUpdate({ title, content, image,idOfPostedCompany });
+    const savedUpdate = await newUpdate.save();
+    res.status(201).json(savedUpdate);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to save the company update.' });
+    console.log(error);
+  }
+});
+
+
+app.get('/company-updates', async (req, res) => {
+  try {
+    const updates = await CompanyUpdate.find().sort({ createdAt: -1 });
+    res.status(200).json(updates);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch company updates.' });
+  }
+});
+
+
+app.get('/companies/:companyId', async (req, res) => {
+  try {
+    const companyId = req.params.companyId;
+    const company = await Company.findById(companyId);
+    res.json(company);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 
 const PORT = 4000;

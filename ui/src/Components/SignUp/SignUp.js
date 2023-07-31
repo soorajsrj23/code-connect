@@ -54,6 +54,10 @@ const SignUp = () => {
     }
   };
 
+  const moveTologin=()=>{
+    navigate('/login')
+  }
+
   return (
     <div className="signup-container">
       <Container className="h-100">
@@ -122,6 +126,7 @@ const SignUp = () => {
                   Sign Up
                 </Button>
               </center>
+              <p>Already have an account<u onClick={moveTologin}>login</u></p>
             </div>
           </Col>
         </Row>

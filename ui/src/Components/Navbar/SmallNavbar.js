@@ -24,6 +24,14 @@ const SmallNavbar = () => {
             </NavLink>
           </NavItem>
           <NavItem>
+            <NavLink href="/profile">
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <i className="bi bi-house-fill" style={{ ...iconStyles, fontSize: '18px' }}></i>
+                <p className="desktop-text" style={textStyles}>Home</p>
+              </div>
+            </NavLink>
+          </NavItem>
+          <NavItem>
             <NavLink href="/news">
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <i className="bi bi-newspaper" style={{ ...iconStyles, fontSize: '18px' }}></i>
@@ -47,14 +55,7 @@ const SmallNavbar = () => {
               </div>
             </NavLink>
           </NavItem>
-          <NavItem>
-            <NavLink href="/profile">
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <i className="bi bi-house-fill" style={{ ...iconStyles, fontSize: '18px' }}></i>
-                <p className="desktop-text" style={textStyles}>Home</p>
-              </div>
-            </NavLink>
-          </NavItem>
+        
           <NavItem>
             <NavLink href="/jobs">
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

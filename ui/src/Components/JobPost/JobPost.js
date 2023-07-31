@@ -3,6 +3,7 @@ import './JobPost.css';
 import SmallNavbar from '../Navbar/SmallNavbar';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import DaysDifference from '../CustomComponents/DayDifference';
 function JobPost() {
   const [jobPosts, setJobPosts] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null); // State to keep track of the selected job post
@@ -85,44 +86,63 @@ function JobPost() {
                   />
                 )}
                 <h2>{job.companyName}</h2>
+               
               </div>
               <div className="job-details">
               
-                <h3>{job.title}</h3>
+                <h3 className='designation'>{job.title}</h3>
                 <div className='location'>
                 <i class="bi bi-geo-alt-fill"></i> 
                 <p>{job.location}</p>   
-                </div>   
+                </div>  
+                <div className='applicants'>
+                <i class="bi bi-people-fill"></i>
+                <p>{job.applicantId.length} has applied for this job</p> 
+                </div> 
+                <div className='applicants'>
+                <i class="bi bi-calendar2-week-fill"></i>
+                <p>posted</p> 
+                <DaysDifference appliedAt={job.createdAt}/>
+                </div> 
               </div>           
             </div>
           ))
         )}
       </div>
-      {showPopup && selectedJob && ( // Show the popup only when showPopup is true and a job post is selected
+      {showPopup && selectedJob && ( 
         <div className="popup">
           <div className="popup-content">
             <span className="close-btn" onClick={closePopup}>&times;</span>
-             <div className='group'>
-            <i class="bi bi-building"></i>
-            <h3>{selectedJob.companyName}</h3>
-            </div>
+            
             <div className='group'>
             <i class="bi bi-briefcase-fill"></i>
-            <h4>{selectedJob.title}</h4>
+            <h4 className='job-title-pop-up'>{selectedJob.title}</h4>
+            </div>
+            <div className='group'>
+            <i class="bi bi-building"></i>
+            <p>{selectedJob.companyName}</p>
             </div>
             <div className='group'>
             <i class="bi bi-clock-fill"></i>
-            <p className="duration">{selectedJob.duration}</p>
+            <p className="duration">{selectedJob.employmentType}</p>
             </div>
             <div className='group'>
             <i class="bi bi-wallet2"></i>
             <p className="salary">{selectedJob.salary}</p>
             </div>
             <div className='group'>
-            <i class="bi bi-info-square-fill"></i>
-            <p className='duty'>Description</p>
-            <p className="job-description">{selectedJob.description}</p>
+            <i class="bi bi-mortarboard-fill"></i>
+            <p className="salary">{selectedJob.qualifications}</p>
             </div>
+            <div className='group'>
+            <i class="bi bi-clipboard2-data-fill"></i>
+            <p className="salary">{selectedJob.skills}</p>
+            </div>
+            <div className='group'>
+            <i class="bi bi-info-square-fill"></i>
+            <p className='duty'>Description</p>      
+            </div>
+            <p className="job-description">{selectedJob.description}</p>
 
             <button className="apply-button"  onClick={() => applyForJob(selectedJob._id)} >Apply</button>
 
