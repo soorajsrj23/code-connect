@@ -1,84 +1,80 @@
-import React from 'react';
-import { Navbar, Nav, NavItem, NavLink,UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import './SmallNavBar.css'
+import React, { useState } from 'react';
+import './NavBar.css'
 const iconStyles = {
-  fontSize: '24px',
-};
-
-const textStyles = {
-  textAlign: 'center',
+  fontSize: '20px',
+  marginRight: '8px',
+  marginLeft:'8px'
 };
 
 const CompanyNavBar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const hideNavItems = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
-    <div className='NavBar'>
-      <Navbar color="dark" dark expand="md" className="fixed-top NavBar">
-    
-        <Nav className="mr-auto">
-          <NavItem>
-            <NavLink href="/search">
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <i className="bi bi-search" style={{ ...iconStyles, fontSize: '18px' }}></i>
-                <p className="desktop-text" style={textStyles}>Search</p>
-              </div>
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="/news">
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <i className="bi bi-newspaper" style={{ ...iconStyles, fontSize: '18px' }}></i>
-                <p className="desktop-text" style={textStyles}>News</p>
-              </div>
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="/communities">
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <i className="bi bi-people-fill" style={{ ...iconStyles, fontSize: '18px' }}></i>
-                <p className="desktop-text" style={textStyles}>Communities</p>
-              </div>
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="/view-post">
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <i className="bi bi-images" style={{ ...iconStyles, fontSize: '18px' }}></i>
-                <p className="desktop-text" style={textStyles}>View Posts</p>
-              </div>
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="/profile">
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <i className="bi bi-house-fill" style={{ ...iconStyles, fontSize: '18px' }}></i>
-                <p className="desktop-text" style={textStyles}>Home</p>
-              </div>
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <UncontrolledDropdown nav inNavbar >
-              <DropdownToggle nav caret className="nav-item-container">
-                <div className="nav-item-container">
-                <i class="bi bi-three-dots-vertical"></i>
-                </div>
-              </DropdownToggle>
-              <DropdownMenu right dark>
-                <DropdownItem href="/create-community">
-                  Create Community
-                </DropdownItem>
-                <DropdownItem href="/edit-profile">
-                  Edit Profile
-                </DropdownItem>
-                <DropdownItem href="/login">
-                 Log Out
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </NavItem>
-      
-        </Nav>
-      </Navbar>
-    </div>
+    <nav className='navbar navbar-expand-md navbar-dark bg-dark fixed-top'>
+      <div className='container'>
+        <a className='navbar-brand' href='/'>
+          Code Connect
+        </a>
+        <button className='navbar-toggler' type='button' onClick={toggleMenu}>
+          <span className='navbar-toggler-icon'></span>
+        </button>
+        <div className={`collapse navbar-collapse  ${isMenuOpen ? 'show' : ''}`}>
+          <ul className='navbar-nav ms-auto'>
+            <li className='nav-item'>
+              <a className='nav-link' href='/search' onClick={hideNavItems}>
+                <i className='bi bi-search' style={iconStyles}></i>
+                Search
+              </a>
+            </li>
+            <li className='nav-item'>
+              <a className='nav-link' href='/news' onClick={hideNavItems}>
+                <i className='bi bi-newspaper' style={iconStyles}></i>
+                News
+              </a>
+            </li>
+            <li className='nav-item'>
+              <a className='nav-link' href='/communities' onClick={hideNavItems}>
+                <i className='bi bi-people-fill' style={iconStyles}></i>
+                Communities
+              </a>
+            </li>
+            <li className='nav-item'>
+              <a className='nav-link' href='/view-post' onClick={hideNavItems}>
+                <i className='bi bi-images' style={iconStyles}></i>
+                View Posts
+              </a>
+            </li>
+            <li className='nav-item'>
+              <a className='nav-link' href='/jobs' onClick={hideNavItems}>
+                <i className='bi bi-briefcase-fill' style={iconStyles}></i>
+                jobs
+              </a>
+            </li>
+            <li className='nav-item'>
+              <a className='nav-link' href='/applied-jobs' onClick={hideNavItems}>
+                <i className='bi bi-journal-check' style={iconStyles}></i>
+                Applied Jobs
+              </a>
+            </li>
+            <li className='nav-item'>
+              <a className='nav-link' href='/view-company-update' onClick={hideNavItems}>
+                <i className='bi bi-images' style={iconStyles}></i>
+                Pages
+              </a>
+            </li>
+            {/* Add other NavItems as needed */}
+          </ul>
+        </div>
+      </div>
+    </nav>
   );
 };
 

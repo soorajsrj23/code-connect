@@ -34,7 +34,7 @@ const CompanyProfile = () => {
   }
 
   return (
-    <Container className="profile-container" fluid>
+    <div className="profile-container">
       <Row>
         <Col xs={12} md={4} sm={4} lg={12} >
           <div className="profile-info">
@@ -60,7 +60,7 @@ const CompanyProfile = () => {
           </button>
         </Col>
       </Row>
-    </Container>
+    </div>
   );
 };
 

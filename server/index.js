@@ -370,22 +370,24 @@ app.get('/chats', async (req, res) => {
   const receiverId = req.query.receiverId;
 
   try {
-    const chats = await Chat.find({ sender: senderId, receiver: receiverId })
-      .populate('sender', '_id')
-      .populate('receiver', '_id')
-      .exec();
+    const chats = await Chat.find({
+      $or: [
+        { sender: senderId, receiver: receiverId },
+        { sender: receiverId, receiver: senderId }
+      ]
+    });
 
     if (chats.length === 0) {
       res.json({ message: 'No chat found' });
     } else {
       res.json(chats);
+      console.log(chats);
     }
   } catch (error) {
     console.error('Error fetching chat messages:', error);
     res.status(500).json({ error: 'Error fetching chat messages' });
   }
 });
-
 
 app.post('/chats', authenticate,async (req, res) => {
   try {
@@ -397,7 +399,6 @@ app.post('/chats', authenticate,async (req, res) => {
       receiver,
     });
     await newChat.save();
-    console.log('Chat message saved:', newChat,"the reciver",newChat.receiver);
 
     // Broadcast the chat message to all connected clients
     io.emit('chat', newChat);
@@ -1076,6 +1077,41 @@ app.get('/companies/:companyId', async (req, res) => {
     res.json(company);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+});
+
+app.put('/api/jobs/:id', async (req, res) => {
+  const jobId = req.params.id;
+  const updatedJob = req.body;
+
+  try {
+    const job = await JobPost.findByIdAndUpdate(
+      jobId,
+      updatedJob,
+      { new: true }
+    );
+
+    if (!job) {
+      return res.status(404).json({ error: 'Job not found' });
+    }
+
+    res.json(job);
+  } catch (error) {
+    console.error('Error updating job:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// API endpoint to delete a job
+app.delete('/api/jobs/:id', async (req, res) => {
+  const jobId = req.params.id;
+
+  try {
+    await JobPost.findByIdAndRemove(jobId);
+    res.json({ message: 'Job deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting job:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 

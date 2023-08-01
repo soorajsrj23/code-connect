@@ -1,10 +1,12 @@
 /* SideMenu.css */
-
+.parent-side-menu{
+  margin: 0;
+  background-color: #444;
+}
 .side-menu {
     background-color: #333;
     color: #fff;
     height: 100%;
-    padding: 20px;
   }
   
   .menu-item {

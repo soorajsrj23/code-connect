@@ -4,6 +4,7 @@ import './SideMenu.css'
 import AddJobPost from '../Components/SideMenuComponents/AddJobPost';
 import CurrentCompanyJobPost from '../Components/SideMenuComponents/CurrentCompanyJobPost';
 import AddCompanyUpdates from '../Components/SideMenuComponents/AddCompanyUpdates'
+import EditPostedjob from '../Components/SideMenuComponents/EditPostedJobs';
 
 const SideMenu = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -21,14 +22,14 @@ const SideMenu = () => {
       case 'recruiters':
         return <div><AddCompanyUpdates/></div>; // Replace with your Recruiters component
       case 'checkMail':
-        return <div>Check Mail Component</div>; // Replace with your Check Mail component
+        return <div><EditPostedjob/></div>; // Replace with your Check Mail component
       default:
         return <div>Select an option from the side menu.</div>;
     }
   };
 
   return (
-    <div className="App">
+    <div className="parent-side-menu">
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-3">
@@ -51,7 +52,7 @@ const SideMenu = () => {
                 </NavItem>
                 <NavItem>
                   <NavLink href="#" onClick={() => handleMenuItemClick('checkMail')} className="menu-item">
-                    Check Mail
+                    Edit Posted job
                   </NavLink>
                 </NavItem>
               </Nav>

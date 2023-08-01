@@ -4,11 +4,11 @@
     align-items: center;
     height: 100vh;
     color: white;
-    background-color: #0d1117;
+    background-color: #181818;
   }
   
   .signup-form {
-    background-color: #161b22;
+    background-image: url('../../assets/bg6.png');
     padding: 30px;
     border-radius: 8px;
   }

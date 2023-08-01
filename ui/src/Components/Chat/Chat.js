@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import { useLocation } from 'react-router-dom';
 import { Container, Row, Col, Input } from 'reactstrap';
 import './Chat.css';
+import SmallNavbar from '../Navbar/SmallNavbar';
 
 const socket = io('http://localhost:4000', {
   withCredentials: true,
@@ -80,6 +81,7 @@ const Chat = () => {
       });
       const responseData = response.data || []; // Handle null or undefined response data
       setMessages(responseData);
+      console.log(responseData);
     } catch (error) {
       console.log('Error fetching chat messages:', error);
       setMessages([]); // Set messages to an empty array in case of an error
@@ -118,6 +120,7 @@ const Chat = () => {
 
   return (
     <Container className="chat-container" fluid  >
+      <SmallNavbar/>
       <div className="profile-part">
         {recieverDetails && recieverDetails.image && recieverDetails.image.data && recieverDetails.image.contentType && (
           <img
@@ -130,8 +133,6 @@ const Chat = () => {
         )}
         <h4>{recieverDetails.name}</h4>
       </div>
-      <p hidden>sender{sender}</p>
-      <p hidden>reciver{receiver}</p>
 
       <Row className="chat-status">
         <Col>{isConnected ? <div>User connected</div> : <div>User disconnected</div>}</Col>
@@ -144,16 +145,17 @@ const Chat = () => {
           ) : (
             messages.map((chat) => (
               <div
-                className={`message-item ${chat.sender._id === senderId ? 'sender' : 'receiver'}`}
+                className={`message-item ${chat.sender == senderId ? 'sender' : 'receiver'}`}
                 key={chat._id}
-              >
+              >       
                 <br />
                 <span
                   className={`message-content ${
-                    chat.sender === senderId ? 'sender-message' : 'receiver-message'
+                    chat.sender == senderId ? 'sender-message' : 'receiver-message'
                   }`}
                 >
                   {chat.message}
+                 
                 </span>
                 <span className="message-name">{chat.sender === senderId ? 'You' : recieverDetails.name}</span>
               </div>

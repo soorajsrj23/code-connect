@@ -80,13 +80,13 @@ const SignUp = () => {
                 </label>
               </div>
               
-              <h2 className="sign-up_head">Sign Up</h2>
+              <h3 className="sign-up_head">Sign Up</h3>
               <FormGroup>
                 <Label for="name" className="inputsFieldName">
                   Name
                 </Label>
                 <br />
-                <input type="text" id="name" className="darkInput" value={name} onChange={(e) => setName(e.target.value)} />
+                <input type="text" id="name" className="dark" value={name} onChange={(e) => setName(e.target.value)} />
               </FormGroup>
               <FormGroup>
                 <Label for="email" className="inputsFieldName">
@@ -94,7 +94,7 @@ const SignUp = () => {
                 </Label>
                 <br />
                 
-                <input type="email" id="email" className="darkInput" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <input type="email" id="email" className="dark" value={email} onChange={(e) => setEmail(e.target.value)} />
               </FormGroup>
 
               <FormGroup>
@@ -102,14 +102,14 @@ const SignUp = () => {
                   Bio
                 </Label>
                 <br />
-                <input type="text" id="bio" className="darkInput" value={bio} onChange={(e) => setBio(e.target.value)} />
+                <input type="text" id="bio" className="dark" value={bio} onChange={(e) => setBio(e.target.value)} />
               </FormGroup>
               <FormGroup>
   <Label for="phone" className="inputsFieldName">
     Phone
   </Label>
   <br />
-  <input type="text" id="phone" className="darkInput" value={phone} onChange={(e) => setPhone(e.target.value)} />
+  <input type="text" id="phone" className="dark" value={phone} onChange={(e) => setPhone(e.target.value)} />
 </FormGroup>
 
 
@@ -119,14 +119,15 @@ const SignUp = () => {
                   Password
                 </Label>
                 <br />
-                <input type="password" id="password" className="darkInput" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input type="password" id="password" className="dark" value={password} onChange={(e) => setPassword(e.target.value)} />
               </FormGroup>
               <center>
                 <Button type="button" className="btn btn-dark" onClick={handleSignup}>
                   Sign Up
                 </Button>
+                  <p>Already have an account <u onClick={moveTologin}>login</u></p>
               </center>
-              <p>Already have an account<u onClick={moveTologin}>login</u></p>
+            
             </div>
           </Col>
         </Row>

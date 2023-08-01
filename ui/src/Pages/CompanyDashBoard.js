@@ -1,15 +1,24 @@
 import React from 'react'
 import CompanyNavBar from '../Components/Navbar/CompanyNavBar'
 import SideMenu from '../SideMenu/SideMenu'
-import ParentComponent from '../Components/Profile/ParentCompanyProfile'
+import CompanyProfile from '../Components/Profile/CompanyProfile'
+import { Container } from 'reactstrap'
+import '../Styles/CompanyDashBoard.css'
+
 function CompanyDashBoard() {
   return (
-    <div>
+  <div>
+   
         <CompanyNavBar/>
-        <ParentComponent/>
+        <Container className='parent-company-dashboard' fluid>
+       <CompanyProfile/>
         <SideMenu/>
+        </Container>
+       
+       
+        </div>
     
-    </div>
+   
   )
 }
 
