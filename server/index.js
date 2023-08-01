@@ -1104,10 +1104,10 @@ app.put('/api/jobs/:id', async (req, res) => {
 
 // API endpoint to delete a job
 app.delete('/api/jobs/:id', async (req, res) => {
-  const jobId = req.params.id;
+  const deleteJob = req.params.id;
 
   try {
-    await JobPost.findByIdAndRemove(jobId);
+    await JobPost.findByIdAndRemove(deleteJob);
     res.json({ message: 'Job deleted successfully' });
   } catch (error) {
     console.error('Error deleting job:', error);

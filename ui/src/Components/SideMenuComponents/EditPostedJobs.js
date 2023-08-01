@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import './EditPostedJobs'
+import { toast } from 'react-toastify';
 const EditPostedjob = () => {
   const [jobs, setJobs] = useState([]);
   const [editJob, setEditJob] = useState(null);
@@ -42,20 +43,30 @@ const EditPostedjob = () => {
       await axios.put(`http://localhost:4000/api/jobs/${editJob._id}`, editJob);
       setIsPopupOpen(false);
       setEditJob(null);
+      toast.success("Updated");
       fetchJobs(); // Refresh the job list after saving
     } catch (error) {
       console.error('Error saving job:', error);
+      toast.error(error.message);
     }
   };
 
 
-  const handleDelete = async (jobId) => {
+  const handleDelete = async (job) => {
+   
     try {
-      // Call your backend API here to delete the job
-      await axios.delete(`http://localhost:4000/api/jobs/${jobId}`);
+      if (!job || !job._id) {
+        console.error('Invalid _id for job:', job);
+        return;
+      }
+
+      console.log(job)
+      await axios.delete(`http://localhost:4000/api/jobs/${job._id}`);
+      toast.success("deleted")
       fetchJobs(); // Refresh the job list after deleting
     } catch (error) {
       console.error('Error deleting job:', error);
+      toast.error(error.message);
     }
   };
 
@@ -69,7 +80,7 @@ const EditPostedjob = () => {
 
   return (
     <div>
-      <table>
+      <table className='table'>
         <thead>
           <tr>
             <th>Job Post</th>
@@ -82,12 +93,12 @@ const EditPostedjob = () => {
           {jobs.map((job) => (
             <tr key={job._id.$oid}>
               <td>{job.title}</td>
-              <td>{new Date(job.createdAt.$date).toLocaleDateString()}</td>
+              <td>{new Date(job.createdAt).toLocaleDateString()}</td>
               <td>
-                <button onClick={() => handleEditClick(job)}>Edit</button>
+                <button className='edit-button' onClick={() => handleEditClick(job)}>Edit</button>
               </td>
               <td>
-                <button onClick={() => handleDelete(job._id.$oid)}>Delete</button>
+                <button className='delete-button' onClick={() => handleDelete(job)}>Delete</button>
               </td>
             </tr>
           ))}

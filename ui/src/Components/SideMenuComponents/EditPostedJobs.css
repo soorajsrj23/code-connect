@@ -1,0 +1,74 @@
+/* CSS for the main container */
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* CSS for the actual popup */
+  .popup {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+  }
+  
+  /* Heading inside the popup */
+  .popup h2 {
+    margin-bottom: 10px;
+  }
+  
+  /* Labels for input fields */
+  .popup label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  /* Input fields */
+  .popup input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  /* Save and Cancel buttons */
+  .popup button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff; /* Change to your desired button color */
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .popup button:last-child {
+    margin-right: 0;
+    background-color: #dc3545; /* Change to your desired button color */
+  }
+  
+  /* Clear floats after the buttons */
+  .popup::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .main-table.edit-button{
+    color: #007bff;
+}  
+
+.delete-button{
+    color: #dc3545;
+}
+table{
+    background-color: black;
+}
