@@ -6,7 +6,7 @@ const iconStyles = {
   marginLeft:'8px'
 };
 
-const CustomNavbar = () => {
+const CommunityNavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -35,39 +35,21 @@ const CustomNavbar = () => {
               </a>
             </li>
             <li className='nav-item'>
-              <a className='nav-link' href='/news' onClick={hideNavItems}>
-                <i className='bi bi-newspaper' style={iconStyles}></i>
-                News
-              </a>
-            </li>
-            <li className='nav-item'>
-              <a className='nav-link' href='/communities' onClick={hideNavItems}>
-                <i className='bi bi-people-fill' style={iconStyles}></i>
-                Communities
-              </a>
-            </li>
-            <li className='nav-item'>
-              <a className='nav-link' href='/view-post' onClick={hideNavItems}>
-                <i className='bi bi-images' style={iconStyles}></i>
-                View Posts
-              </a>
-            </li>
-            <li className='nav-item'>
-              <a className='nav-link' href='/jobs' onClick={hideNavItems}>
-                <i className='bi bi-briefcase-fill' style={iconStyles}></i>
-                jobs
-              </a>
-            </li>
-            <li className='nav-item'>
-              <a className='nav-link' href='/applied-jobs' onClick={hideNavItems}>
-                <i className='bi bi-journal-check' style={iconStyles}></i>
-                Applied Jobs
+              <a className='nav-link' href='/create-community' onClick={hideNavItems}>
+                <i className='bi bi-person-fill-add' style={iconStyles}></i>
+                Create Community
               </a>
             </li>
             <li className='nav-item'>
               <a className='nav-link' href='/view-company-update' onClick={hideNavItems}>
                 <i className='bi bi-images' style={iconStyles}></i>
                 Pages
+              </a>
+            </li>
+            <li className='nav-item'>
+              <a className='nav-link' href='/profile' onClick={hideNavItems}>
+                <i className='bi bi-house-fill' style={iconStyles}></i>
+                Home
               </a>
             </li>
             {/* Add other NavItems as needed */}
@@ -78,4 +60,4 @@ const CustomNavbar = () => {
   );
 };
 
-export default CustomNavbar;
+export default CommunityNavBar;

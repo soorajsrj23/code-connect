@@ -3,6 +3,7 @@ import axios from 'axios';
 import io from 'socket.io-client';
 import { Row, Col, ListGroup, ListGroupItem, Form, Button } from 'reactstrap';
 import './CommunityListComponent.css';
+import CommunityNavBar from '../Navbar/CommunityNavBar';
 
 const CommunityListComponent = () => {
   const [communities, setCommunities] = useState([]);
@@ -155,6 +156,7 @@ const CommunityListComponent = () => {
 
   return (
     <div className="container-fluid bg-dark text-white py-4">
+      <CommunityNavBar/>
       <Row>
         <Col md={4} className="communityList">
           <h2>Communities</h2>

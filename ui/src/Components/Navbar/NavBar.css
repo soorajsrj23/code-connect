@@ -1,39 +1,22 @@
-/* Your other CSS rules... */
+/* CustomNavbar.css */
 
-.Navbar {
-  height: 80px;
-  align-items: center;
-  justify-content: space-between;
+/* Adjust distance between each nav item */
+.navbar-nav {
+  margin-right: 35px; /* Adjust this value to control the horizontal distance */
 }
 
-.navbar i {
-  font-size: 18px;
+/* Hover effect for navigation items */
+.navbar-nav .nav-item .nav-link:hover {
+  color: #fff; /* Change the text color on hover */
+  background-color: rgba(255, 255, 255, 0.1); /* Change the background color on hover */
+  border-radius: 5px; /* Optional: Add a border-radius to create rounded corners on hover */
+  transition: background-color 0.3s ease; /* Add a smooth transition effect */
+}
+
+/* Hover effect for the mobile menu items */
+.mobile-menu .nav-item .nav-link:hover {
   color: #fff;
-  display: inline-block; /* Add this line to ensure icons take up the correct space */
-}
-
-.navbar .nav-item {
-  margin-left: 10px;
-}
-
-.navbar a {
-  text-decoration: none;
-  color: #fff;
-}
-
-.navbar i:hover {
-  color: #b5b5b5;
-  transition: 0.5s;
-  font-size: 20px;
-  line-height: 18px; /* Set a fixed line-height for the icon on hover */
-}
-
-/* Add the following style to revert the line-height to default when not hovering */
-.navbar i:not(:hover) {
-  line-height: 18px;
-}
-@media (max-width: 768px) {
-  .NavBar .desktop-text {
-    display: none;
-  }
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }

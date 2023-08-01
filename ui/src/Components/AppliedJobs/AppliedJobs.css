@@ -2,6 +2,7 @@
 .ParentAppliedJob{
  min-height: 100vh;
  height: auto;
+ margin-top: 40px;
 }
 .page-title {
     text-align: center;
