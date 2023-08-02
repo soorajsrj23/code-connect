@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './EditPostedJobs'
+import './EditPostedJobs.css'
 import { toast } from 'react-toastify';
 const EditPostedjob = () => {
   const [jobs, setJobs] = useState([]);
@@ -79,95 +79,105 @@ const EditPostedjob = () => {
   };
 
   return (
-    <div>
-      <table className='table'>
-        <thead>
-          <tr>
-            <th>Job Post</th>
-            <th>Date</th>
-            <th>Edit</th>
-            <th>Delete</th>
+    <div className="edit-posted-jobs-container">
+    <table className="main-table">
+      <thead>
+        <tr>
+          <th>Job Post</th>
+          <th>Date</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {jobs.map((job) => (
+          <tr key={job._id.$oid}>
+            <td>{job.title}</td>
+            <td>{new Date(job.createdAt).toLocaleDateString()}</td>
+            <td>
+              <button className="edit-button" onClick={() => handleEditClick(job)}>
+                Edit
+              </button>
+            </td>
+            <td>
+              <button className="delete-button" onClick={() => handleDelete(job)}>
+                Delete
+              </button>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {jobs.map((job) => (
-            <tr key={job._id.$oid}>
-              <td>{job.title}</td>
-              <td>{new Date(job.createdAt).toLocaleDateString()}</td>
-              <td>
-                <button className='edit-button' onClick={() => handleEditClick(job)}>Edit</button>
-              </td>
-              <td>
-                <button className='delete-button' onClick={() => handleDelete(job)}>Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        ))}
+      </tbody>
+    </table>
 
-      {isPopupOpen && (
-        <div className="popup-container">
-          <div className="popup">
-            {editJob && (
-              <div>
-                <h2>Edit Job Details</h2>
-                <label>
-                  Company Name:
-                  <input
-                    type="text"
-                    name="companyName"
-                    value={editJob.companyName}
-                    onChange={handleChange}
-                  />
-                </label>
-                <label>
-                  Title:
-                  <input type="text" name="title" value={editJob.title} onChange={handleChange} />
-                </label>
-                <label>
-                  Description:
-                  <input
-                    type="text"
-                    name="description"
-                    value={editJob.description}
-                    onChange={handleChange}
-                  />
-                </label>
-                <label>
-                  Salary:
-                  <input type="text" name="salary" value={editJob.salary} onChange={handleChange} />
-                </label>
-                <label>
-                  Qualifications:
-                  <input
-                    type="text"
-                    name="qualifications"
-                    value={editJob.qualifications}
-                    onChange={handleChange}
-                  />
-                </label>
-                <label>
-                  Location:
-                  <input
-                    type="text"
-                    name="location"
-                    value={editJob.location}
-                    onChange={handleChange}
-                  />
-                </label>
-                <label>
-                  Skills:
-                  <input type="text" name="skills" value={editJob.skills} onChange={handleChange} />
-                </label>
-                {/* Add additional input fields for editing */}
-                <button onClick={handleSave}>Save</button>
-                <button onClick={() => setIsPopupOpen(false)}>Cancel</button>
+    {isPopupOpen && (
+      <div className="popup-container">
+        <div className="popup">
+          {editJob && (
+            <div>
+              <h2>Edit Job Details</h2>
+              <label>
+                Company Name:
+                <input
+                  type="text"
+                  name="companyName"
+                  value={editJob.companyName}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Title:
+                <input type="text" name="title" value={editJob.title} onChange={handleChange} />
+              </label>
+              <label>
+                Description:
+                <input
+                  type="text"
+                  name="description"
+                  value={editJob.description}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Salary:
+                <input type="text" name="salary" value={editJob.salary} onChange={handleChange} />
+              </label>
+              <label>
+                Qualifications:
+                <input
+                  type="text"
+                  name="qualifications"
+                  value={editJob.qualifications}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Location:
+                <input
+                  type="text"
+                  name="location"
+                  value={editJob.location}
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Skills:
+                <input type="text" name="skills" value={editJob.skills} onChange={handleChange} />
+              </label>
+              {/* Add additional input fields for editing */}
+              <div className="buttons-container">
+                <button className="save-button" onClick={handleSave}>
+                  Save
+                </button>
+                <button className="cancel-button" onClick={() => setIsPopupOpen(false)}>
+                  Cancel
+                </button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </div>
+    )}
+  </div>
   );
 };
 

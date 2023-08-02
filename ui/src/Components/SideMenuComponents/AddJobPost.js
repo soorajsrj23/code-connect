@@ -40,9 +40,9 @@ const SimpleForm = () => {
   };
 
   return (
-    <div>
-      <h1>Job Posting Form</h1>
-      <form onSubmit={handleSubmit}>
+    <div className='parent-add-job-post'>
+      <h1 className='job-post-heading'>Post a job</h1>
+      <form onSubmit={handleSubmit} className='add-job-post-form'>
         <label>
           Title:
           <input
@@ -50,6 +50,7 @@ const SimpleForm = () => {
             name="title"
             value={formData.title}
             onChange={handleChange}
+            className="fields"
           />
         </label>
         <br />
@@ -73,6 +74,7 @@ const SimpleForm = () => {
             name="salary"
             value={formData.salary}
             onChange={handleChange}
+            className="fields"
           />
         </label>
         <br />
@@ -96,6 +98,7 @@ const SimpleForm = () => {
             name="location"
             value={formData.location}
             onChange={handleChange}
+            className="fields"
           />
         </label>
         <br />
@@ -107,6 +110,7 @@ const SimpleForm = () => {
             name="skills"
             value={formData.skills}
             onChange={handleChange}
+            className="fields"
           />
         </label>
         <br />
@@ -118,6 +122,7 @@ const SimpleForm = () => {
             name="employmentType"
             value={formData.employmentType}
             onChange={handleChange}
+            className="fields"
           />
         </label>
         <br />
@@ -129,6 +134,7 @@ const SimpleForm = () => {
             name="experience"
             value={formData.experience}
             onChange={handleChange}
+            className="fields"
           />
         </label>
         <br />

@@ -7,3 +7,56 @@
     resize: vertical;
     min-height: 100px;
   }
+
+  .parent-add-job-post {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+  font-family: Arial;
+}
+
+.job-post-heading {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Verdana';
+}
+
+.add-job-post-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+
+
+.add-job-post-form button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  background-color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-job-post-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Optional: Add more styles for specific form elements if needed */
+.fields{
+  background-color: transparent;
+  border: 2px;
+  border-color: #ffffff !important;
+
+}
+.add-job-post-form{
+  border: 1px solid #fff;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+
