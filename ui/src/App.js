@@ -2,12 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from './Components/SignUp/SignUp';
 import Login from './Pages/Login';
-import EditProfile from './Pages/EditProfile';
+import EditProfile from './Components/Profile/EditProfile';
 import AddPost from './Components/Posts/AddPost';
 import ViewPosts from './Components/Posts/ViewPosts';
 import UserDashBoard from './Pages/UserDashBoard';
 import CreateCommunity from './Components/Community/CreateCommunity';
-import UserProvider from './Components/Context/UserContext';
+import UserProvider from './Components/Context/ProfileContext';
 import UserSearch from './Components/Search/UserSearch';
 import CommunityListComponent from './Components/Community/CommunityListComponent';
 import TechNews from './Components/News/TechNews'
@@ -22,12 +22,13 @@ import CompanyDashBoard from './Pages/CompanyDashBoard';
 import JobPost from './Components/JobPost/JobPost';
 import AppliedJobs from './Components/AppliedJobs/AppliedJobs';
 import CompanyUpdateUserView from './Components/CompanyUpdateUserView/CompanyUpdateUserView'
+import SimilarityFinder from './Components/CustomComponents/SimilarityFInder';
 
 
 function App() {
   return (
     <Router>
-      <UserProvider>
+     
         <Routes>
         <Route exact path="/" element={<ContinueAsOption />} />
         <Route exact path="/company-signup" element={<CompanySignUp />} />
@@ -50,6 +51,8 @@ function App() {
           <Route path="jobs" element={<JobPost/>} />
           <Route path="applied-jobs" element={<AppliedJobs/>} />
           <Route path="view-company-update" element={<CompanyUpdateUserView/>} />
+          <Route path="similar" element={<SimilarityFinder/>} />
+
 
 
           <Route path="navbar" element={<SmallNavbar/>} />
@@ -57,7 +60,7 @@ function App() {
         
 
         </Routes>
-      </UserProvider>
+
     </Router>
   );
 }

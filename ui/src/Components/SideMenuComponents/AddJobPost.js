@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './AddJobPost.css'
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const SimpleForm = () => {
   const [formData, setFormData] = useState({
@@ -33,9 +34,11 @@ const SimpleForm = () => {
         },
       });
       console.log(response.data);
+      toast.success('added new job post');
 
     } catch (error) {
       console.error(error);
+      toast.error(error.message);
     }
   };
 

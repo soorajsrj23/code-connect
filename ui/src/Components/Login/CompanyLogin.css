@@ -34,10 +34,11 @@
     font-weight: bold;
   }
   
-  .darkInput {
-    background-color: #0d1117;
+  .dark {
+    background-color:transparent;
     color: #c9d1d9;
     border: none;
+    border-bottom: 1px solid white;
     height: 40px;
     width: 100%;
     padding: 8px;

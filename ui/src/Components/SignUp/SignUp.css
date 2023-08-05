@@ -12,10 +12,12 @@
     border-radius: 8px;
   }
   
-  .darkInput {
-    background-color: #0d1117; /* Dark background color */
+  .dark {
+    background-color:transparent; /* Dark background color */
     color: #c9d1d9;
     border: none;
+   border-bottom: 1px solid white;
+
     height: 40px; /* Adjust the height as desired */
     width: 100%; /* Adjust the width as desired */
     padding: 8px; 

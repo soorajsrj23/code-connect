@@ -13,6 +13,7 @@ const CompanyUpdates = () => {
     const [content, setContent] = useState('');
     const [image, setImage] = useState(null); // State to store the selected image file
     const [updates, setUpdates] = useState([]);
+    
   
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -73,12 +74,12 @@ const CompanyUpdates = () => {
         </Row>
         <FormGroup>
           <Label for="content">Content</Label>
-          <Input
+          <textarea
             type="textarea"
             id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="input-field"
+            className="text-area-field"
           />
         </FormGroup>
         <Button type="submit" color="primary" className="add-button">Add Update</Button>

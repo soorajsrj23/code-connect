@@ -62,11 +62,11 @@ const CreateCommunity = () => {
         <Form onSubmit={handleSubmit}>
           <FormGroup>
             <Label for="name">Name:</Label>
-            <input type="text" value={name} onChange={handleNameChange} />
+            <input type="text" value={name} onChange={handleNameChange}  className='name-input'/>
           </FormGroup>
           <FormGroup>
             <Label for="description">Description:</Label>
-            <input type="text" value={description} onChange={handleDescriptionChange} />
+            <input type="text" className='name-input' value={description} onChange={handleDescriptionChange} />
           </FormGroup>
           <FormGroup>
             <Label for="icon">Icon:</Label>

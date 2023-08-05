@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import './AppliedJobs.css';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import TimeLine from './TimeLine';
 
 function AppliedJobs() {
   const [AppliedJobPosts, setAppliedJobPosts] = useState([]);
-
+  
   useEffect(() => {
     fetchAppliedJobPosts();
   }, []);
@@ -31,10 +31,18 @@ function AppliedJobs() {
   const getDaysDifference = (appliedAt) => {
     const appliedDate = new Date(appliedAt);
     const currentDate = new Date();
+  
+    // Ignore the time of the day by setting hours, minutes, seconds, and milliseconds to 0
+    appliedDate.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
+  
+    // Calculate the difference in days
     const differenceInTime = currentDate.getTime() - appliedDate.getTime();
     const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+  
     return differenceInDays;
   };
+  
 
   return (
     <Container fluid className='ParentAppliedJob'>
@@ -70,23 +78,24 @@ function AppliedJobs() {
             <h5 className='duty'>Description</h5>
             <p>{job.description}</p>
             </div>
-              <p>created at : {new Date(job.createdAt).toLocaleDateString()}</p>
+              <p>job posted at : {new Date(job.createdAt).toLocaleDateString()}</p>
               <div>
-  {job.applicantId.map((applicantInfo) => (
-    <div key={applicantInfo._id}>
+ 
+    <div >
       <div className='start_point'>
-   <p> Applied {getDaysDifference(applicantInfo.appliedAt)} days ago</p> 
+   <p> you Applied for this {getDaysDifference(job.appliedAt)} days ago</p> 
    </div>
+   <p>Application send on {new Date(job.appliedAt).toLocaleDateString() }</p>
    <TimeLine applicantInfo={job.applicantId} />
-     <div className={`applicant-status ${applicantInfo.jobStatus.toLowerCase()}`}>
-      {applicantInfo.jobStatus === 'New' ? ' Applied ' : <p>{applicantInfo.jobStatus}</p>}
+     <div className={`applicant-status ${job.jobStatus.toLowerCase()}`}>
+      {job.jobStatus === 'New' ? ' Applied ' : <p>{job.jobStatus}</p>}
+     
 </div>
 
     </div>
-  ))}
+ 
 </div>
 <div>
-  <p>{}</p>
 </div>
              
             </div>

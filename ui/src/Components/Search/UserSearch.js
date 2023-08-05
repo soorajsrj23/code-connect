@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {  useNavigate } from 'react-router-dom';
 import './UserSearch.css';
+import SmallNavbar from '../Navbar/SmallNavbar';
 const UserSearch = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -74,6 +75,8 @@ const UserSearch = () => {
 
   return (
     <div className='mainSearch'>
+      <SmallNavbar/>
+      <div className='search-container'>
       <input
         type="text"
         value={searchQuery}
@@ -118,7 +121,7 @@ const UserSearch = () => {
           ) : (
             <div>Loading... </div>
           )}
-     
+       </div>     
       </div>
     </div>
   );

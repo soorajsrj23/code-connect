@@ -50,12 +50,12 @@ const Login = () => {
           
             <Label for="email"className='inputsFieldName' >Email</Label>
             <br/>
-            <input type="email" id="email"  value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="email" id="email"  className='dark' value={email} onChange={(e) => setEmail(e.target.value)} />
           </FormGroup>
           <FormGroup>
             <Label for="password"  className='inputsFieldName' >Password</Label>
             <br/>
-            <input type="password" id="password"  value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input type="password" id="password" className='dark'  value={password} onChange={(e) => setPassword(e.target.value)} />
           </FormGroup>
           
           <center>

@@ -1,0 +1,105 @@
+/* EditProfile.css */
+.parent-edit-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #161b22;
+ 
+}
+
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+  background-color: #161b22;
+  color: #fff;
+  margin-top: 30px;
+}
+
+.form-group {
+  margin-bottom: 30px;
+}
+
+label {
+  font-weight: bold;
+  color: #fff ;
+}
+
+.darkInputs{
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  border-bottom: 1px solid #fff;
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid #0366d6;
+  /* Blue border color */
+  box-shadow: 0 0 5px #0366d6;
+  /* Blue box shadow */
+}
+
+.image-container {
+  position: relative;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; 
+}
+
+.file-input-label {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background-color: transparent;
+  color: #fff ;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+}
+
+.file-icon {
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+
+.file-input {
+  display: none;
+}
+
+button[type='submit'] {
+  padding: 10px 20px;
+  background-color: #007bff;
+  /* Blue button color */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.imageIn_circle {
+  border-radius: 50%;
+  height: 90px;
+  width: 90px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  form {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}

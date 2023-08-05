@@ -5,6 +5,7 @@ import AddJobPost from '../Components/SideMenuComponents/AddJobPost';
 import CurrentCompanyJobPost from '../Components/SideMenuComponents/CurrentCompanyJobPost';
 import AddCompanyUpdates from '../Components/SideMenuComponents/AddCompanyUpdates'
 import EditPostedjob from '../Components/SideMenuComponents/EditPostedJobs';
+import CompanyProfile from '../Components/Profile/CompanyProfile';
 
 const SideMenu = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -24,7 +25,7 @@ const SideMenu = () => {
       case 'checkMail':
         return <div><EditPostedjob/></div>; // Replace with your Check Mail component
       default:
-        return <div>Select an option from the side menu.</div>;
+        return <div><CompanyProfile/></div>;
     }
   };
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../Styles/EditProfile.css';
+import './EditProfile.css';
 //import { toast } from 'react-toastify';
-import { Button } from 'reactstrap';
+import { Button, Container } from 'reactstrap';
 const EditProfile = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -75,6 +75,7 @@ const EditProfile = () => {
   };
 
   return (
+    <div className='parent-edit-profile'>
     <form className="dark-theme" style={{ textAlign: 'left' }} onSubmit={handleSubmit}>
      <div>
     {fetchedImage && (
@@ -82,7 +83,7 @@ const EditProfile = () => {
         <img src={fetchedImage} className='imageIn_circle' alt="Fetched" width="100" />
         <label htmlFor="file-input" className="file-input-label">
           <div className="file-icon" >
-          <i className="bi bi-plus-circle-fill" style={{ fontSize: '34px', color: 'Highlight' }}></i>
+          <i className="bi bi-plus-circle-fill" style={{ fontSize: '34px', color: 'white' }}></i>
           </div>
           <input id="file-input" type="file" className='file-input' onChange={handleChange} />
         </label>
@@ -91,37 +92,38 @@ const EditProfile = () => {
   </div>
                 
 
-  <div>
+  <div className='form-group'>
         <label>Name:</label>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        <input type="text" className='darkInputs' value={name} onChange={(e) => setName(e.target.value)} />
       </div>
 
 
 
-      <div>
+      <div  className='form-group'>
         <label>Bio</label>
-        <input type="text" value={bio} onChange={(e) => setBio(e.target.value)} />
+        <input type="text"className='darkInputs'  value={bio} onChange={(e) => setBio(e.target.value)} />
       </div>
 
-      <div>
+      <div  className='form-group'>
         <label>Phone</label>
-        <input type="number" value={phone} onChange={(e) => setPhone(e.target.value)} />
+        <input type="number" className='darkInputs' value={phone} onChange={(e) => setPhone(e.target.value)} />
       </div>
 
 
-      <div>
+      <div  className='form-group'>
         <label>Email:</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input type="email" value={email} className='darkInputs' onChange={(e) => setEmail(e.target.value)} />
       </div>
-      <div>
+      <div  className='form-group'>
         <label>Password:</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input type="password" className='darkInputs' value={password} onChange={(e) => setPassword(e.target.value)} />
       </div>
       
       <br/>
       
       <Button  class="btn btn-outline-dark" type="submit">Update Profile</Button>
     </form>
+    </div>
   );
 };
 

@@ -10,7 +10,7 @@ const app = express();
 const port = 4000;
 app.use(express.json());
 
-
+const sendEmail=require('./MailSending/SendEmailsFunction')
 const JobPost=require('../server/models/JobPost')
 const Post=require('../server/models/AddPost')
 const Company=require('../server/models/Company')
@@ -468,54 +468,44 @@ app.post('/signup', upload.single('image'), async (req, res) => {
       console.error(error);
       res.status(500).send('Error registering user.');
     }
+    const subject = "Sending Email With React And Nodejs";
 
+    const dynamicValues = {
+      username: name,
+      platformName: 'codeConnect',
+    };
+  
+    // Split the HTML into different parts and replace the placeholders with the dynamic values
+    const htmlData = `
+      <h1>Welcome to ${dynamicValues.platformName}!</h1>
+      <p>
+        Congratulations ${dynamicValues.username} on joining ${dynamicValues.platformName}! We are excited to have you as a member of our developer community.
+      </p>
+      <p>
+        ${dynamicValues.platformName} is a platform for developers to connect, collaborate, and share their knowledge and projects with other like-minded individuals. Whether you are an experienced developer or just starting your journey, you'll find a supportive community here to help you grow and learn.
+      </p>
+      <p>
+        We hope you have a great time exploring the platform and connecting with fellow developers. If you have any questions or need assistance, feel free to reach out to our support team.
+      </p>
+      <p>
+        Happy coding!
+      </p>
+      <p>
+        The ${dynamicValues.platformName} Team
+      </p>
+    `;
+  
     try {
-
-      const transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-              user: 'mail',
-              pass: 'pass'
-          }
+      sendEmail(subject, email, htmlData, (error, info) => {
+        if (error) {
+          res.status(401).json({ status: 401, error });
+        } else {
+          res.status(201).json({ status: 201, info });
+        }
       });
-
-      const mailOptions = {
-          from:'srjdev019@gmail.com',
-          to: email,
-          subject: "Sending Email With React And Nodejs",
-          html: `
-          <h1>Welcome to codeConnect!</h1>
-          <p>
-            Congratulations on joining codeConnect! We are excited to have you as a member of our developer community.
-          </p>
-          <p>
-            codeConnect is a platform for developers to connect, collaborate, and share their knowledge and projects with other like-minded individuals. Whether you are an experienced developer or just starting your journey, you'll find a supportive community here to help you grow and learn.
-          </p>
-          <p>
-            We hope you have a great time exploring the platform and connecting with fellow developers. If you have any questions or need assistance, feel free to reach out to our support team.
-          </p>
-          <p>
-            Happy coding!
-          </p>
-          <p>
-            The codeConnect Team
-          </p>
-        `,
-      };
-
-      transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-              console.log("Error" + error)
-          } else {
-              console.log("Email sent:" + info.response);
-              res.status(201).json({status:201,info})
-          }
-      })
-
-  } catch (error) {
-      console.log("Error" + error);
-      res.status(401).json({status:401,error})
-  }
+    } catch (error) {
+      res.status(500).json({ status: 500, error: "Internal Server Error" });
+    }
 
   });
   
@@ -776,7 +766,7 @@ app.post('/posts/:postId/like', authenticate, async (req, res) => {
       return res.status(404).json({ error: 'Post not found' });
     }
 
-    if (post.likes.includes(userId)) {
+    if (post.likes.some(like => like.equals(userId))) {
       return res.status(400).json({ error: 'Post already liked' });
     }
 
@@ -947,8 +937,6 @@ app.post('/selected-job', authenticate, async (req, res) => {
   const applicantId = req.user._id; // Assuming the authenticated user's ID is in the req.user object
   const applicantName = req.user.name; // Assuming the authenticated user's name is in the req.user object
 
-
-   console.log({jobId});
   try {
     // Find the job post by its ID
     const job = await JobPost.findById(jobId);
@@ -957,7 +945,6 @@ app.post('/selected-job', authenticate, async (req, res) => {
       return res.status(404).json({ error: 'Job not found' });
     }
 
-   
     const hasApplied = job.applicantId.some(
       (applicant) => applicant.developerId.toString() === applicantId.toString()
     );
@@ -965,7 +952,7 @@ app.post('/selected-job', authenticate, async (req, res) => {
     if (hasApplied) {
       return res.status(400).json({ error: 'You have already applied to this job' });
     }
-   
+
     const newApplication = {
       developerId: applicantId,
       developerName: applicantName,
@@ -974,12 +961,47 @@ app.post('/selected-job', authenticate, async (req, res) => {
     job.applicantId.push(newApplication);
     await job.save();
 
-    res.status(200).json({ message: 'Applied successfully' });
+    // Prepare email data
+    const subject = `Your Application has been sent for the role of ${job.title} at ${job.companyName}`;
+    const dynamicValues = {
+      companyName: job.companyName,
+      platformName: 'codeConnect',
+      roll: job.title,
+    };
+
+    // Split the HTML into different parts and replace the placeholders with the dynamic values
+    const htmlData = `
+      <h1>Application sent for the role of ${job.title} at ${job.companyName}</h1>
+      <p>
+        This is an email from <strong> ${dynamicValues.platformName} </strong> team which confirms that you have 
+        successfully applied for the role of ${job.title} at ${job.companyName}.You can track your application status on 
+        the Applied jobs section.
+      </p>
+      <p>Best regards,</p>
+      <p>
+        The ${dynamicValues.platformName} Team
+      </p>
+    `;
+
+    // Send the confirmation email to the applicant
+    sendEmail(subject, req.user.email, htmlData, (error, info) => {
+      if (error) {
+        res.status(401).json({ status: 401, error });
+      } else {
+        res.status(201).json({ status: 201, info });
+      }
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error while applying' });
   }
 });
+
+
+
+
+
+
 app.get('/users/:developerId', async (req, res) => {
   try {
     const developerId = req.params.developerId;
@@ -1001,19 +1023,41 @@ app.get('/users/:developerId', async (req, res) => {
 
 
 
-app.get('/get-applied-job-by-developer',authenticate, async (req, res) => {
+app.get('/get-applied-job-by-developer', authenticate, async (req, res) => {
   try {
-    const developerId = req.user.name;
+    const developerId = req.user._id;
 
-    const jobPosts = await JobPost.find({ 'applicantId.developerName': developerId }).sort({ createdAt: -1 });
+    // Find the job posts where the 'applicantId' array contains the given 'developerId'
+    const jobPosts = await JobPost.find({ 'applicantId.developerId': developerId }).sort({ createdAt: -1 });
 
-    if (!jobPosts) {
+    if (!jobPosts || jobPosts.length === 0) {
       return res.status(404).json({ error: 'No Jobs found' });
     }
 
+    // Filter out the corresponding object with job details for the specific developer
+    const appliedJobs = jobPosts.map((jobPost) => {
+      const applicantInfo = jobPost.applicantId.find((applicant) => applicant.developerId.toString() === developerId.toString());
+      return {
+        _id: jobPost._id,
+        companyName: jobPost.companyName,
+        title: jobPost.title,
+        createdAt:jobPost.createdAt,
+        description: jobPost.description,
+        salary: jobPost.salary,
+        qualifications: jobPost.qualifications,
+        location: jobPost.location,
+        skills: jobPost.skills,
+        employmentType: jobPost.employmentType,
+        experience: jobPost.experience,
+        appliedAt: applicantInfo.appliedAt,
+        jobStatus: applicantInfo.jobStatus,
+        CompanyImage: jobPost.CompanyImage,
+      };
+    });
+
     // Send the user details in the response
-    res.status(200).json(jobPosts);
-    console.log(jobPosts)
+    res.status(200).json(appliedJobs);
+    console.log(appliedJobs);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server error' });

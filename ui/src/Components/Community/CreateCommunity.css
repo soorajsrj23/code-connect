@@ -53,3 +53,13 @@
   opacity: 0;
   cursor: pointer;
 }
+.name-input{
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  width: 100%;
+}
+.Main-Container{
+  height: 100vh;
+  background-color: #191919;
+}

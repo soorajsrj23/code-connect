@@ -35,14 +35,16 @@ function JobPost() {
   };
 
 
-  const applyForJob = async (IdOfApplicant) => {
+  const applyForJob = async (IdOfApplicant,company_name,job_roll) => {
     const jobId = IdOfApplicant;
+    const companyName=company_name;
+    const jobRoll=job_roll;
     console.log("jobId" + jobId);
     try {
       // Send a POST request to create a new post
       const response = await axios.post(
         'http://localhost:4000/selected-job',
-        { jobId }, // Send the jobId as an object in the request body
+        { jobId,companyName,jobRoll }, // Send the jobId as an object in the request body
         {
           headers: {
             Authorization: localStorage.getItem('token'), // Send the JWT token for authentication
@@ -144,7 +146,7 @@ function JobPost() {
             </div>
             <p className="job-description">{selectedJob.description}</p>
 
-            <button className="apply-button"  onClick={() => applyForJob(selectedJob._id)} >Apply</button>
+            <button className="apply-button"  onClick={() => applyForJob(selectedJob._id,selectedJob.companyName,selectedJob.title)} >Apply</button>
 
           </div>
         </div>

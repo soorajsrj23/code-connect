@@ -157,7 +157,13 @@
 }
 
 .chat-input-container  .chat-input:focus {
-  background-color: #0a0606;
+  background-color: #212121;
+  color: #fffcfc;
+  border: none;
+  box-shadow: none;
+}
+.chat-input:focus {
+  background-color: #212121;
   color: #fffcfc;
   border: none;
   box-shadow: none;

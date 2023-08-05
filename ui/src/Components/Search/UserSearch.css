@@ -3,14 +3,16 @@
   color: #fff;
   height: 100vh;
 }
-
+.search-container{
+  padding-top: 70px;
+}
 
 .search-input {
-  width: 50px;
+  width: 100%;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color:#1a1919;
+  background-color:#3b3b3b;
   color: #fff;
   font-size: 16px;
   margin-bottom: 1px;

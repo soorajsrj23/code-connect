@@ -133,6 +133,7 @@ function CurrentCompanyJobPost() {
               const userDetails = userDetailsMap[developerInfo.developerId] || {};
               return (
                 <div key={developerInfo.developerId} className="applicant">
+                  <div></div>
                   <Row className="userInfo">
                     <Col sm="4">
                       {userDetails.image && (
@@ -188,6 +189,7 @@ function CurrentCompanyJobPost() {
 
     </div>
   ))}
+
 
             
           </div>
